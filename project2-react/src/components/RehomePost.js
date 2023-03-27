@@ -1,28 +1,70 @@
 import React from 'react'
 import BASE_API from './BaseApi'
+import axios from "axios";
 
 export default class RehomePost extends React.Component {
 
-
-
     state = {
-        "catName": "Meow",
-        "catBreed": [],
-        "catAge": "",
-        "catGender": "",
-        "requireHomeVisit": "",
-        "neutered": "",
-        "personality": [],
-        "familyStatus": [],
-        "comment": "",
-        "medicalHistory": [
-           
+        catName: "",
+        catBreed: [],
+        catAge: "",
+        catGender: "",
+        requireHomeVisit: "",
+        neutered: "",
+        personality: [],
+        familyStatus: [],
+        comment: "",
+        medicalHistory: [
+
         ],
-        "pictureUrl": "",
-        "name": "",
-        "email": ""
+        pictureUrl: "",
+        name: "",
+        email: "",
+        userID:""
+        // user:{
+        //     name: "",
+        //     email: ""
+        // }
+    }
+   
+    postUser = async () => {
+
+        const response = await axios.post(`${BASE_API}userCollection`,
+        {
+            name:this.state.name,
+            email:this.state.email
+        });
+        
+        this.setState({
+            userID:response.data.status.insertedId
+        } )
+
+        this.postCats();
     }
 
+    postCats =  async () => {
+        console.log('postCats');
+          const result = await axios.post(`${BASE_API}catCollection`,
+        {
+            userID:this.state.userID,
+            catName: this.state.catName,
+            catBreed: this.state.catBreed,
+            catAge: this.state.catAge,
+            catGender: this.state.catAge,
+            requireHomeVisit: this.state.requireHomeVisit,
+            neutered: this.state.neutered,
+            personality: this.state.personality,
+            familyStatus: this.state.familyStatus,
+            comment: this.state.comment,
+            medicalHistory: this.state.medicalHistory,
+            pictureUrl: this.state.pictureUrl,
+        });
+
+        console.log(result.data)
+    }
+
+   
+    
     render() {
         return (
             <React.Fragment>
@@ -195,10 +237,10 @@ export default class RehomePost extends React.Component {
                             <button type="submit" className="btn btn-primary">Add Record</button>
                         </form>
                         <ul>
-                {this.state.medicalHistory.map((record, index) => (
-                    <li key={index}>{record.problem} - {record.date}</li>
-                ))}
-            </ul>
+                            {this.state.medicalHistory.map((record, index) => (
+                                <li key={index}>{record.problem} - {record.date}</li>
+                            ))}
+                        </ul>
                     </div>
                     <div>
                         <label> Comment:</label>
@@ -222,9 +264,9 @@ export default class RehomePost extends React.Component {
                         <input type="text" className="form-control" value={this.state.email}
                             onChange={this.updateEmail} />
                     </div>
-
-
-
+                    <div>
+                    <button onClick={this.postUser}>submit</button>                
+                    </div>
 
                 </div>
             </React.Fragment>
@@ -234,27 +276,27 @@ export default class RehomePost extends React.Component {
     addMedicalRecord = (e) => {
         e.preventDefault();
         const newRecord = {
-          problem: this.state.newProblem,
-          date: this.state.newDate
+            problem: this.state.newProblem,
+            date: this.state.newDate
         };
         this.setState(prevState => ({
-          medicalHistory: [...prevState.medicalHistory, newRecord],
-          newProblem: "",
-          newDate: ""
+            medicalHistory: [...prevState.medicalHistory, newRecord],
+            newProblem: "",
+            newDate: ""
         }));
-      };
+    };
 
 
 
     updateCatName = (event) => {
         this.setState({
-            "catName": event.target.value
+            catName: event.target.value
         })
     }
 
     updateName = (event) => {
         this.setState({
-            "name": event.target.value
+            name: event.target.value
         })
     }
 
@@ -266,42 +308,43 @@ export default class RehomePost extends React.Component {
 
     updateEmail = (event) => {
         this.setState({
-            "email": event.target.value
+            email: event.target.value
         })
+
     }
     updateComment = (event) => {
         this.setState({
-            "comment": event.target.value
+            comment: event.target.value
         })
     }
 
     updatePicture = (event) => {
         this.setState({
-            "pictureUrl": event.target.value
+            pictureUrl: event.target.value
         })
     }
 
     updateCatAge = (event) => {
         this.setState({
-            "catAge": event.target.value
+            catAge: event.target.value
         })
     }
 
     updateCatGender = (event) => {
         this.setState({
-            "catGender": event.target.value
+            catGender: event.target.value
         })
     }
 
     updateRequireHomeVisit = (event) => {
         this.setState({
-            "requireHomeVisit": event.target.value
+            requireHomeVisit: event.target.value
         })
     }
 
     updateNeutered = (event) => {
         this.setState({
-            "neutered": event.target.value
+            neutered: event.target.value
         })
     }
 
@@ -315,14 +358,14 @@ export default class RehomePost extends React.Component {
 
             const modified = [...this.state.personality.slice(0, indexToDelete), ...this.state.personality.slice(indexToDelete + 1)];
             this.setState({
-                "personality": modified
+                personality: modified
             })
 
         } else {
 
             const modified = [...this.state.personality, event.target.value];
             this.setState({
-                "personality": modified
+                personality: modified
             })
         }
 
@@ -338,14 +381,14 @@ export default class RehomePost extends React.Component {
 
             const modified = [...this.state.familyStatus.slice(0, indexToDelete), ...this.state.familyStatus.slice(indexToDelete + 1)];
             this.setState({
-                "familyStatus": modified
+                familyStatus: modified
             })
 
         } else {
 
             const modified = [...this.state.familyStatus, event.target.value];
             this.setState({
-                "familyStatus": modified
+                familyStatus: modified
             })
         }
     }
