@@ -7,7 +7,7 @@ export default class RehomePost extends React.Component {
 
     state = {
         "catName": "Meow",
-        "catbreed": [],//
+        "catBreed": [],
         "catAge": "",
         "catGender": "",
         "requireHomeVisit": "",
@@ -15,7 +15,9 @@ export default class RehomePost extends React.Component {
         "personality": [],
         "familyStatus": [],
         "comment": "",
-        "medicalHistory": [],//
+        "medicalHistory": [
+           
+        ],
         "pictureUrl": "",
         "name": "",
         "email": ""
@@ -38,6 +40,26 @@ export default class RehomePost extends React.Component {
                         <input type="text" className="form-control" value={this.state.catAge}
                             onChange={this.updateCatAge} />
                     </div>
+                    <div>
+                        <label>Cat Breed:</label>
+                        <select className="form-control"
+                            name="catBreed"
+                            value={this.state.catBreed}
+                            onChange={this.updateFormField}>
+                            <option value="sgc">Singapura Cat</option>
+                            <option value="psc">Persian</option>
+                            <option value="rdc">Ragdoll</option>
+                            <option value="mcc">Maine Coon</option>
+                            <option value="bgc">Bengal</option>
+                            <option value="smc">Siamese</option>
+                            <option value="mcc">Munchkin</option>
+                            <option value="sbc">Siberian</option>
+                            <option value="rbc">Russian Blue</option>
+                            <option value="bsc">British Shorthair</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+
                     <div>
                         <label>Cat Gender:</label>
                         <input type="radio"
@@ -133,7 +155,7 @@ export default class RehomePost extends React.Component {
                     </div>
                     <div>
                         <label>Family Status:</label>
-                    
+
                         <input type="checkbox"
                             name="familyStatus"
                             value="Good with kids"
@@ -151,9 +173,33 @@ export default class RehomePost extends React.Component {
                             value="Leave me alone"
                             onChange={this.updateFamilyStatus} />
                         <label>Leave me alone</label>
-                        
-                    </div>
 
+                    </div>
+                    <div>
+                        <label>Medical History:</label>
+                        <form onSubmit={this.addMedicalRecord}>
+                            <div className="form-group">
+                                <label htmlFor="problem">Problem:</label>
+                                <input type="text" className="form-control" id="problem"
+                                    value={this.state.newProblem}
+                                    onChange={(e) => this.setState({ newProblem: e.target.value })}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="date">Date:</label>
+                                <input type="text" className="form-control" id="date"
+                                    value={this.state.newDate}
+                                    onChange={(e) => this.setState({ newDate: e.target.value })}
+                                />
+                            </div>
+                            <button type="submit" className="btn btn-primary">Add Record</button>
+                        </form>
+                        <ul>
+                {this.state.medicalHistory.map((record, index) => (
+                    <li key={index}>{record.problem} - {record.date}</li>
+                ))}
+            </ul>
+                    </div>
                     <div>
                         <label> Comment:</label>
                         <input type="text" className="form-control" value={this.state.comment}
@@ -185,6 +231,21 @@ export default class RehomePost extends React.Component {
         )
     }
 
+    addMedicalRecord = (e) => {
+        e.preventDefault();
+        const newRecord = {
+          problem: this.state.newProblem,
+          date: this.state.newDate
+        };
+        this.setState(prevState => ({
+          medicalHistory: [...prevState.medicalHistory, newRecord],
+          newProblem: "",
+          newDate: ""
+        }));
+      };
+
+
+
     updateCatName = (event) => {
         this.setState({
             "catName": event.target.value
@@ -196,6 +257,13 @@ export default class RehomePost extends React.Component {
             "name": event.target.value
         })
     }
+
+    updateFormField = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
     updateEmail = (event) => {
         this.setState({
             "email": event.target.value
@@ -261,7 +329,7 @@ export default class RehomePost extends React.Component {
     }
 
     updateFamilyStatus = (event) => {
-        
+
         if (this.state.familyStatus.includes(event.target.value)) {
 
             const indexToDelete = this.state.familyStatus.findIndex(function (el) {
