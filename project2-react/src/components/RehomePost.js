@@ -35,18 +35,21 @@ export default class RehomePost extends React.Component {
             email:this.state.email
         });
         
-        this.setState({
-            userID:response.data.status.insertedId
-        } )
+        //insertedID to retrieve data upon request successfully called
+        //status = success or failuer of API call
+        
+        let userID = response.data.status.insertedId;
+        console.log("UserID",userID);
 
-        this.postCats();
+        this.postCats(userID);
     }
 
-    postCats =  async () => {
+    postCats =  async (userID) => {
         console.log('postCats');
+        console.log("UserID", userID);
           const result = await axios.post(`${BASE_API}catCollection`,
         {
-            userID:this.state.userID,
+            userID: userID, //this.state.userID
             catName: this.state.catName,
             catBreed: this.state.catBreed,
             catAge: this.state.catAge,
