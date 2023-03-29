@@ -91,16 +91,16 @@ export default class RehomePost extends React.Component {
                             name="catBreed"
                             value={this.state.catBreed}
                             onChange={this.updateFormField}>
-                            <option value="sgc">Singapura Cat</option>
-                            <option value="psc">Persian</option>
-                            <option value="rdc">Ragdoll</option>
-                            <option value="mcc">Maine Coon</option>
-                            <option value="bgc">Bengal</option>
-                            <option value="smc">Siamese</option>
-                            <option value="mcc">Munchkin</option>
-                            <option value="sbc">Siberian</option>
-                            <option value="rbc">Russian Blue</option>
-                            <option value="bsc">British Shorthair</option>
+                            <option value="Singapore Cat">Singapura Cat</option>
+                            <option value="Persian">Persian</option>
+                            <option value="Ragdoll">Ragdoll</option>
+                            <option value="Maine Coon">Maine Coon</option>
+                            <option value="Bengal">Bengal</option>
+                            <option value="Siamese">Siamese</option>
+                            <option value="Munchkin">Munchkin</option>
+                            <option value="Siberian">Siberian</option>
+                            <option value="Russian Blue">Russian Blue</option>
+                            <option value="British Shorthair">British Shorthair</option>
                             <option value="others">Others</option>
                         </select>
                     </div>

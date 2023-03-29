@@ -1,13 +1,30 @@
 import React from 'react';
 import BASE_API from './BaseApi';
 import axios from "axios";
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col, Modal, Button } from 'react-bootstrap';
 
 export default class BrowseCat extends React.Component {
 
     state = {
         cats: [],
-        users: []
+        users: [],
+        catBeingViewed: "",
+        catName: "",
+        catBreed: [],
+        catAge: "",
+        catGender: "",
+        requireHomeVisit: "",
+        neutered: "",
+        personality: [],
+        familyStatus: [],
+        comment: "",
+        medicalHistory: [
+
+        ],
+        pictureUrl: "",
+        name: "",
+        email: "",
+        userID: ""
     }
 
     loadCats = async () => {
@@ -44,6 +61,31 @@ export default class BrowseCat extends React.Component {
     }
 
 
+    togglePost = (cat,user) => {
+        this.setState({
+            catBeingViewed: cat._id,
+            catName: cat.catName,
+            catBreed: cat.catBreed,
+            catAge: cat.catAge,
+            catGender: cat.catGender,
+            requireHomeVisit: cat.requireHomeVisit,
+            neutered: cat.neutered,
+            personality: cat.personality,
+            familyStatus: cat.familyStatus,
+            comment: cat.familyStatus,
+            medicalHistory: cat.medicalHistroy,
+            pictureUrl: cat.pictureUrl,
+            
+            // userID: ""
+        })
+    }
+
+    closePost = () => {
+        this.setState({
+            catBeingViewed: ""
+        })
+    }
+
 
     render() {
         return (
@@ -61,24 +103,51 @@ export default class BrowseCat extends React.Component {
                                     <Card.Subtitle className="mb-2">{cat.catBreed}</Card.Subtitle>
                                     <Card.Text className="text-white">
                                         <p>Gender: {cat.catGender}</p>
-                                        <p>Requires Home Visit: {cat.requireHomeVisit}</p>
+                                        {/* <p>Requires Home Visit: {cat.requireHomeVisit}</p>
                                         <p>Neutered: {cat.neutered}</p>
                                         <p>Personality: {cat.personality}</p>
-                                        <p>Family Status: {cat.familyStatus}</p>
+                                        <p>Family Status: {cat.familyStatus}</p> */}
                                         {/* <p>Medical History:{cat.medicalHistory}</p> */}
                                         <p>Comment: {cat.comment}</p>
                                     </Card.Text>
                                     {this.state.users.map(user => (
-                                        user.id === cat.userId &&
-                                        <div key={user.id}>
-                                            <Card.Subtitle className="mt-3 mb-2 text-white">Owner Information</Card.Subtitle>
-                                            <Card.Text className="text-white">
-                                                <p>Name: {user.name}</p>
-                                                <p>Email: {user.email}</p>
-                                            </Card.Text>
-                                        </div>
-                                    )).slice(0, 1)} // display only the first owner if there are multiple owners
+                                        console.log(`${user._id} === ${cat.userID}`, user._id === cat.userID),
+                                        user._id === cat.userID && (
+                                            <div key={user._id}>
+                                                <Card.Subtitle className="mt-3 mb-2 text-white">Owner Information</Card.Subtitle>
+                                                <Card.Text className="text-white">
+                                                    <p>Name: {user.name}</p>
+                                                    <p>Email: {user.email}</p>
+                                                </Card.Text>
+                                            </div>
+                                        )
+                                    ))};
                                 </Card.Body>
+                                <button onClick={() => this.togglePost(cat)}>View</button>
+                                <Modal show={this.state.catBeingViewed}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>More info</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>Picture: {this.state.pictureUrl}</Modal.Body>
+                                    <Modal.Body>Cat Name: {this.state.catName}</Modal.Body>
+                                    <Modal.Body>Cat Breed: {this.state.catBreed}</Modal.Body>
+                                    <Modal.Body>Cat Age: {this.state.catAge}</Modal.Body>
+                                    <Modal.Body>Require Home Visit: {this.state.requireHomeVisit}</Modal.Body>
+                                    <Modal.Body>Nuetered: {this.state.neutered}</Modal.Body>
+                                    <Modal.Body>Personality: {this.state.personality}</Modal.Body>
+                                    <Modal.Body>Family Status: {this.state.familyStatus}</Modal.Body>
+                                    <Modal.Footer>
+                                        <Button onClick={this.closePost} variant="secondary">
+                                            Close
+                                        </Button>
+                                        <Button variant="primary">
+                                            Edit
+                                        </Button>
+                                        <Button variant="danger">
+                                            Delete
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
                             </Card>
                         </Col>
                     ))}
