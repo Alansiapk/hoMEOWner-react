@@ -3,6 +3,10 @@ import BASE_API from './BaseApi'
 import axios from "axios";
 
 export default class RehomePost extends React.Component {
+    constructor(props) {
+        super(props);
+        // this.checkParentInfo();
+    }
 
     state = {
         catName: "",
@@ -20,55 +24,197 @@ export default class RehomePost extends React.Component {
         pictureUrl: "",
         name: "",
         email: "",
-        userID:""
+        userID: "",
+        users: [],
+        newProfileFlag: false,
+        editFlag: false
         // user:{
         //     name: "",
         //     email: ""
         // }
     }
-   
+
+
+    loadUsers = async () => {
+        try {
+            const response = await axios.get(`${BASE_API}userCollection`);
+
+            this.setState({
+                users: response.data.userCollection
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    /***
+     * change event based on the user selection whether they have registered or not
+     */
+    changeUserOption = async () => {
+
+        var selected = document.getElementById("userSelection");
+        if (selected.value === "1") { // registered
+            this.setState({
+                "newProfileFlag": false
+            });
+            this.loadUsers();
+        } else if (selected.value === "0") { // not registered
+            //create new profile
+            this.setState({
+                "newProfileFlag": true
+            });
+        } else { // please select option
+            this.setState({
+                users: []
+            });
+
+        }
+
+    }
+
     postUser = async () => {
+        let userID;
+        if (this.state.newProfileFlag) {
 
-        const response = await axios.post(`${BASE_API}userCollection`,
-        {
-            name:this.state.name,
-            email:this.state.email
-        });
-        
-        //insertedID to retrieve data upon request successfully called
-        //status = success or failuer of API call
-        
-        let userID = response.data.status.insertedId;
-        console.log("UserID",userID);
 
+            const response = await axios.post(`${BASE_API}userCollection`,
+                {
+                    name: this.state.name,
+                    email: this.state.email
+                });
+
+            //insertedID to retrieve data upon request successfully called
+            //status = success or failuer of API call
+
+            userID = response.data.status.insertedId;
+            console.log("UserID", userID);
+
+        } else {
+            userID = document.getElementById("userID").value;
+        }
         this.postCats(userID);
     }
 
-    postCats =  async (userID) => {
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.cat !== null) {
+            //Change in props
+            console.log("props:", props);
+            return {
+                catName: props.cat.cat.catName,
+                catBreed: props.cat.cat.catBreed,
+                catAge: props.cat.cat.catAge,
+                catGender: props.cat.cat.catGender,
+                editFlag: true
+            };
+        }
+        return null; // No change to state
+    }
+
+    postCats = async (userID) => {
         console.log('postCats');
         console.log("UserID", userID);
-          const result = await axios.post(`${BASE_API}catCollection`,
-        {
-            userID: userID, //this.state.userID
-            catName: this.state.catName,
-            catBreed: this.state.catBreed,
-            catAge: this.state.catAge,
-            catGender: this.state.catAge,
-            requireHomeVisit: this.state.requireHomeVisit,
-            neutered: this.state.neutered,
-            personality: this.state.personality,
-            familyStatus: this.state.familyStatus,
-            comment: this.state.comment,
-            medicalHistory: this.state.medicalHistory,
-            pictureUrl: this.state.pictureUrl,
-        });
+        const result = await axios.post(`${BASE_API}catCollection`,
+            {
+                userID: userID, //this.state.userID
+                catName: this.state.catName,
+                catBreed: this.state.catBreed,
+                catAge: this.state.catAge,
+                catGender: this.state.catAge,
+                requireHomeVisit: this.state.requireHomeVisit,
+                neutered: this.state.neutered,
+                personality: this.state.personality,
+                familyStatus: this.state.familyStatus,
+                comment: this.state.comment,
+                medicalHistory: this.state.medicalHistory,
+                pictureUrl: this.state.pictureUrl,
+            });
 
         console.log(result.data)
     }
 
-   
-    
+    /**
+     * Creating option dynamically
+     */
+    createOption(val, text) {
+        return <option value={val}>{text}</option>; // value is ID and the label shown is the name
+    }
+
+    /**
+     * return rendered user selection based on the react state of the users
+     * assumption: users has been loaded
+     * @returns user selection html 
+     */
+    userSelectionField = () => {
+        let options = [];
+        let select = <div>Please select the above option to continue</div>;
+
+        if (this.state.users.length > 0) {
+            select = <select id="userID">
+                {options}
+            </select>;
+
+            for (let i = 0; i < this.state.users.length; i++) {
+                options.push(this.createOption(this.state.users[i]._id, this.state.users[i].name));
+            }
+        }
+
+        return <div>
+            {select}
+        </div>
+
+    }
+
+
+    /**
+     * return new profile field where the user can keyin new profile name and email address
+     * @returns registration user html 
+     */
+    newProfileField() {
+        return (
+            <div>
+                <div>
+                    <label> Owner Name:</label>
+                    <input type="text" className="form-control" value={this.state.name}
+                        onChange={this.updateName} />
+                </div>
+                <div>
+                    <label> Email:</label>
+                    <input type="email" className="form-control" value={this.state.email}
+                        onChange={this.updateEmail} />
+                </div>
+            </div>);
+    }
+
+    checkSession() {
+        this.checkParentInfo();
+    }
+
     render() {
+
+
+        console.log("state:", this.state);
+        let newProfile = <div></div>;
+        let userSelection = <div></div>;
+
+        if (!this.state.editFlag) {
+
+            if (this.state.newProfileFlag) {
+                newProfile = this.newProfileField();
+            } else {
+                userSelection = this.userSelectionField();
+            }
+        } else {
+            if (this.props.cat != null) {
+
+                userSelection = <div><div>
+                    <label> Owner Name:</label>
+                    <input type="text" className="form-control" value={this.props.cat.cat.userID} disabled="disabled"
+                        onChange={this.updateName} />
+                </div></div>
+            }
+        }
+
         return (
             <React.Fragment>
                 <div className="container">
@@ -82,7 +228,7 @@ export default class RehomePost extends React.Component {
                     </div>
                     <div>
                         <label> Cat Age:</label>
-                        <input type="text" className="form-control" value={this.state.catAge}
+                        <input type="number" className="form-control" value={this.state.catAge}
                             onChange={this.updateCatAge} />
                     </div>
                     <div>
@@ -232,7 +378,7 @@ export default class RehomePost extends React.Component {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="date">Date:</label>
-                                <input type="text" className="form-control" id="date"
+                                <input type="date" className="form-control" id="date"
                                     value={this.state.newDate}
                                     onChange={(e) => this.setState({ newDate: e.target.value })}
                                 />
@@ -258,19 +404,26 @@ export default class RehomePost extends React.Component {
 
                     <h2>Owner details</h2>
                     <div>
-                        <label> Owner Name:</label>
-                        <input type="text" className="form-control" value={this.state.name}
-                            onChange={this.updateName} />
-                    </div>
-                    <div>
-                        <label> Email:</label>
-                        <input type="text" className="form-control" value={this.state.email}
-                            onChange={this.updateEmail} />
-                    </div>
-                    <div>
-                    <button onClick={this.postUser}>submit</button>                
+                        Have you registered before?
+                        <select id="userSelection" onChange={this.changeUserOption}>
+                            <option value="-1">
+                                Please select
+                            </option>
+                            <option value="1">
+                                Yes
+                            </option>
+                            <option value="0">
+                                No
+                            </option>
+                        </select>
                     </div>
 
+                    {newProfile}
+                    {userSelection}
+
+                    <div>
+                        <button onClick={this.postUser}>submit</button>
+                    </div>
                 </div>
             </React.Fragment>
         )

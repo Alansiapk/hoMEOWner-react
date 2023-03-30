@@ -6,6 +6,7 @@ import { Card, Row, Col, Modal, Button } from 'react-bootstrap';
 export default class BrowseCat extends React.Component {
 
     state = {
+        cat: {},
         cats: [],
         users: [],
         catBeingViewed: "",
@@ -63,6 +64,7 @@ export default class BrowseCat extends React.Component {
 
     togglePost = (cat,user) => {
         this.setState({
+            cat: cat,
             catBeingViewed: cat._id,
             catName: cat.catName,
             catBreed: cat.catBreed,
@@ -73,7 +75,7 @@ export default class BrowseCat extends React.Component {
             personality: cat.personality,
             familyStatus: cat.familyStatus,
             comment: cat.familyStatus,
-            medicalHistory: cat.medicalHistroy,
+            medicalHistory: cat.medicalHistory,
             pictureUrl: cat.pictureUrl,
             
             // userID: ""
@@ -86,8 +88,34 @@ export default class BrowseCat extends React.Component {
         })
     }
 
+    editCat = () => {
+        this.props.switchPage("rehomepost", {
+            cat: this.state.cat
+        });
+    }
+
+    generateMedicalHistoryField =() =>{
+        let field = <div></div>;
+        let arrayMedicalHistory = [];
+
+
+        if (this.state.medicalHistory!== null && this.state.medicalHistory.length>0){
+            for(let i=0; i<this.state.medicalHistory.length; i++){
+
+                arrayMedicalHistory.push(<div>
+                    {this.state.medicalHistory[i].problem} reported on {this.state.medicalHistory[i].date}
+                    </div>);
+            }
+
+            field = <div>{arrayMedicalHistory}</div>;
+        }
+
+        return field;
+    }
+
 
     render() {
+        var medicalField = this.generateMedicalHistoryField();
         return (
             <div style={{ backgroundColor: "#274060", minHeight: "100vh" }}>
                 <div className="text-center text-white py-5">
@@ -121,11 +149,11 @@ export default class BrowseCat extends React.Component {
                                                 </Card.Text>
                                             </div>
                                         )
-                                    ))};
+                                    ))}
                                 </Card.Body>
                                 <button onClick={() => this.togglePost(cat)}>View</button>
                                 <Modal show={this.state.catBeingViewed}>
-                                    <Modal.Header closeButton>
+                                    <Modal.Header closeButton onClick={this.closePost}>
                                         <Modal.Title>More info</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>Picture: {this.state.pictureUrl}</Modal.Body>
@@ -136,11 +164,12 @@ export default class BrowseCat extends React.Component {
                                     <Modal.Body>Nuetered: {this.state.neutered}</Modal.Body>
                                     <Modal.Body>Personality: {this.state.personality}</Modal.Body>
                                     <Modal.Body>Family Status: {this.state.familyStatus}</Modal.Body>
+                                    <Modal.Body>Medical History: {medicalField}</Modal.Body>
                                     <Modal.Footer>
                                         <Button onClick={this.closePost} variant="secondary">
                                             Close
                                         </Button>
-                                        <Button variant="primary">
+                                        <Button onClick={this.editCat} variant="primary">
                                             Edit
                                         </Button>
                                         <Button variant="danger">

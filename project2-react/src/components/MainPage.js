@@ -8,7 +8,8 @@ export default class MainPage extends React.Component{
 
     state = {
         "activePage": "browsecat",
-        cats: []
+        cats: [],
+        cat : null
     }
 
     renderPage(){
@@ -16,15 +17,17 @@ export default class MainPage extends React.Component{
             case "browsecat":
                 return <BrowseCat switchPage={this.switchPage}/>
             case "rehomepost":
-                return <RehomePost switchPage={this.switchPage}/>
+                return <RehomePost switchPage={this.switchPage} cat={this.state.cat}/>
             default:
                 return<div>Error.Page not found</div>
         }
     }
 
-    switchPage = (newPage) => {
+    switchPage = (newPage, cat) => {
+        console.log("value cat switch page",cat);
         this.setState({
-            "activePage": newPage
+            "activePage": newPage,
+            "cat": cat
         })
     }
 
@@ -38,12 +41,12 @@ export default class MainPage extends React.Component{
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <a className="nav-link" href="#" onClick={()=>{
-                                this.switchPage("browsecat")
+                                this.switchPage("browsecat",null)
                             }}>Browse Cat</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#" onClick={()=>{
-                                this.switchPage("rehomepost")
+                                this.switchPage("rehomepost",null)
                             }}>Rehome</a>
                         </li>
                     </ul>
