@@ -65,6 +65,7 @@ export default class BrowseCat extends React.Component {
 
 
     togglePost = (cat,user) => {
+        console.log('cat',cat)
         this.setState({
             cat: cat,
             catBeingViewed: cat._id,
@@ -79,7 +80,7 @@ export default class BrowseCat extends React.Component {
             comment: cat.familyStatus,
             medicalHistory: cat.medicalHistory,
             pictureUrl: cat.pictureUrl,
-            
+          //  users:cat
             // userID: ""
         })
     }

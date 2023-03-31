@@ -15,7 +15,7 @@ export default class EditPost extends React.Component {
         updatedComment: this.props.cat.cat.comment,
         updatedMedicalHistory: this.props.cat.cat.medicalHistory,
         updatedPictureUrl: this.props.cat.cat.pictureUrl,
-       //updateUserID: this.props.cat.cat.userID,
+       updateUserID: this.props.cat.cat.userID,
        updateCatId:this.props.cat.cat._id
     }
 
@@ -29,7 +29,7 @@ export default class EditPost extends React.Component {
         console.log('ID',this.state.updateCatId);
         const result = await axios.put(`${BASE_API}catCollection/${this.state.updateCatId}`,
             {
-                //userID: this.state.updateUserID, //this.state.userID
+                userID: this.state.updateUserID, //this.state.userID
                 catName: this.state.updatedCatName,
                 catBreed: this.state.updatedCatBreed,
                 catAge: this.state.updatedCatAge,
