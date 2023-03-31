@@ -9,7 +9,7 @@ export default class BrowseCat extends React.Component {
         cat: {},
         cats: [],
         users: [],
-        catBeingViewed: "",
+        catBeingViewed: "",//
         catName: "",
         catBreed: [],
         catAge: "",
@@ -89,7 +89,7 @@ export default class BrowseCat extends React.Component {
     }
 
     editCat = () => {
-        this.props.switchPage("rehomepost", {
+        this.props.switchPage("editpost", {
             cat: this.state.cat
         });
     }
@@ -98,7 +98,7 @@ export default class BrowseCat extends React.Component {
         let field = <div></div>;
         let arrayMedicalHistory = [];
 
-
+        //check if it is not null && at least have one element
         if (this.state.medicalHistory!== null && this.state.medicalHistory.length>0){
             for(let i=0; i<this.state.medicalHistory.length; i++){
 
@@ -115,7 +115,9 @@ export default class BrowseCat extends React.Component {
 
 
     render() {
-        var medicalField = this.generateMedicalHistoryField();
+        let medicalField = this.generateMedicalHistoryField();
+
+
         return (
             <div style={{ backgroundColor: "#274060", minHeight: "100vh" }}>
                 <div className="text-center text-white py-5">

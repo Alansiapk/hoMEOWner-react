@@ -1,6 +1,7 @@
 import React from 'react';
 import BrowseCat from './BrowseCat';
 import RehomePost from './RehomePost';
+import EditPost from "./EditPost";
 import BASE_API from './BaseApi';
 import axios from "axios";
 
@@ -17,7 +18,11 @@ export default class MainPage extends React.Component{
             case "browsecat":
                 return <BrowseCat switchPage={this.switchPage}/>
             case "rehomepost":
-                return <RehomePost switchPage={this.switchPage} cat={this.state.cat}/>
+                return <RehomePost switchPage={this.switchPage} 
+                                    cat={this.state.cat}/>
+            case "editpost":
+                return <EditPost switchPage={this.switchPage}
+                                 cat={this.state.cat} />                                    
             default:
                 return<div>Error.Page not found</div>
         }

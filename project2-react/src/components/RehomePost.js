@@ -3,6 +3,7 @@ import BASE_API from './BaseApi'
 import axios from "axios";
 
 export default class RehomePost extends React.Component {
+
     constructor(props) {
         super(props);
         // this.checkParentInfo();
@@ -27,7 +28,8 @@ export default class RehomePost extends React.Component {
         userID: "",
         users: [],
         newProfileFlag: false,
-        editFlag: false
+        editFlag: false,
+
         // user:{
         //     name: "",
         //     email: ""
@@ -52,7 +54,7 @@ export default class RehomePost extends React.Component {
      */
     changeUserOption = async () => {
 
-        var selected = document.getElementById("userSelection");
+        let selected = document.getElementById("userSelection");
         if (selected.value === "1") { // registered
             this.setState({
                 "newProfileFlag": false
@@ -223,7 +225,8 @@ export default class RehomePost extends React.Component {
                     <h2>Cat Details</h2>
                     <div>
                         <label> Cat Name:</label>
-                        <input type="text" className="form-control" value={this.state.catName}
+                        <input type="text" className="form-control" 
+                            value={this.state.catName}
                             onChange={this.updateCatName} />
                     </div>
                     <div>
@@ -442,6 +445,12 @@ export default class RehomePost extends React.Component {
         }));
     };
 
+
+    formChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
 
 
     updateCatName = (event) => {
