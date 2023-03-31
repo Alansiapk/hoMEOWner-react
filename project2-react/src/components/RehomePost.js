@@ -122,7 +122,7 @@ export default class RehomePost extends React.Component {
                 catName: this.state.catName,
                 catBreed: this.state.catBreed,
                 catAge: this.state.catAge,
-                catGender: this.state.catAge,
+                catGender: this.state.catGender,
                 requireHomeVisit: this.state.requireHomeVisit,
                 neutered: this.state.neutered,
                 personality: this.state.personality,

@@ -22,7 +22,7 @@ export default class MainPage extends React.Component{
                                     cat={this.state.cat}/>
             case "editpost":
                 return <EditPost switchPage={this.switchPage}
-                                 cat={this.state.cat} />                                    
+                                 cat={this.state.cat} />      //props                              
             default:
                 return<div>Error.Page not found</div>
         }

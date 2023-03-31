@@ -133,6 +133,7 @@ export default class BrowseCat extends React.Component {
                                     <Card.Subtitle className="mb-2">{cat.catBreed}</Card.Subtitle>
                                     <Card.Text className="text-white">
                                         <p>Gender: {cat.catGender}</p>
+                                        <p>Age :{cat.catAge}</p>
                                         {/* <p>Requires Home Visit: {cat.requireHomeVisit}</p>
                                         <p>Neutered: {cat.neutered}</p>
                                         <p>Personality: {cat.personality}</p>
@@ -158,7 +159,7 @@ export default class BrowseCat extends React.Component {
                                     <Modal.Header closeButton onClick={this.closePost}>
                                         <Modal.Title>More info</Modal.Title>
                                     </Modal.Header>
-                                    <Modal.Body>Picture: {this.state.pictureUrl}</Modal.Body>
+                                    <Modal.Body><img src={this.state.pictureUrl} /></Modal.Body>
                                     <Modal.Body>Cat Name: {this.state.catName}</Modal.Body>
                                     <Modal.Body>Cat Breed: {this.state.catBreed}</Modal.Body>
                                     <Modal.Body>Cat Age: {this.state.catAge}</Modal.Body>
