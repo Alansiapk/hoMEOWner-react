@@ -6,6 +6,7 @@ import { Card, Row, Col, Modal, Button } from 'react-bootstrap';
 export default class BrowseCat extends React.Component {
 
     state = {
+        
         cat: {},
         cats: [],
         users: [],
@@ -25,7 +26,8 @@ export default class BrowseCat extends React.Component {
         pictureUrl: "",
         name: "",
         email: "",
-        userID: ""
+        userID: "",
+        _id:""
     }
 
     loadCats = async () => {
@@ -36,7 +38,7 @@ export default class BrowseCat extends React.Component {
                 cats: response.data.catCollection
             })
 
-            console.log(this.state.cats)
+            console.log('cats...',response.data.catCollection)
         } catch (error) {
             console.error(error)
         }
@@ -89,6 +91,7 @@ export default class BrowseCat extends React.Component {
     }
 
     editCat = () => {
+        console.log('cats...',this.state.cat)
         this.props.switchPage("editpost", {
             cat: this.state.cat
         });

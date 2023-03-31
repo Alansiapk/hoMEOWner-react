@@ -15,8 +15,8 @@ export default class EditPost extends React.Component {
         updatedComment: this.props.cat.cat.comment,
         updatedMedicalHistory: this.props.cat.cat.medicalHistory,
         updatedPictureUrl: this.props.cat.cat.pictureUrl,
-        updateUserID: this.props.cat.cat.userID,
-
+       //updateUserID: this.props.cat.cat.userID,
+       updateCatId:this.props.cat.cat._id
     }
 
     onUpdateForm = (event) => {
@@ -25,11 +25,27 @@ export default class EditPost extends React.Component {
         })
     }
 
-    // updateCat = async () => {
-    //     const response = await axios.put(`${}`, {
-    //         catName : this.state.updateCatName
-    //     })
-    // }
+    updateCat = async () => {
+        console.log('ID',this.state.updateCatId);
+        const result = await axios.put(`${BASE_API}catCollection/${this.state.updateCatId}`,
+            {
+                //userID: this.state.updateUserID, //this.state.userID
+                catName: this.state.updatedCatName,
+                catBreed: this.state.updatedCatBreed,
+                catAge: this.state.updatedCatAge,
+                catGender: this.state.updatedCatGender,
+                requireHomeVisit: this.state.updatedRequiredHomeVisit,
+                neutered: this.state.updatedNeutered,
+                personality: this.state.updatedPersonality,
+                familyStatus: this.state.updatedFamilyStatus,
+                comment: this.state.updatedComment,
+                medicalHistory: this.state.updatedMedicalHistory,
+                pictureUrl: this.state.updatedPictureUrl,
+                //_id: this.state.updateCatId
+            });
+
+        console.log(result.data)
+    }
 
     render() {
         return (<React.Fragment>
@@ -320,8 +336,10 @@ export default class EditPost extends React.Component {
             problem: this.state.newProblem,
             date: this.state.newDate
         };
+
+        console.log('newRecord',newRecord);
         this.setState(prevState => ({
-            medicalHistory: [...prevState.medicalHistory, newRecord],
+            updatedMedicalHistory: [...prevState.updatedMedicalHistory, newRecord],
             newProblem: "",
             newDate: ""
         }));

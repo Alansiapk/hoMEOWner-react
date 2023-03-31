@@ -434,12 +434,15 @@ export default class RehomePost extends React.Component {
 
     addMedicalRecord = (e) => {
         e.preventDefault();
+        // prevent the default form submission behavior, which would cause the page to refresh.
         const newRecord = {
             problem: this.state.newProblem,
             date: this.state.newDate
         };
         this.setState(prevState => ({
             medicalHistory: [...prevState.medicalHistory, newRecord],
+            // This operator creates a new array that includes all the previous records and the new record. 
+            // This is done to preserve the existing records and avoid mutating the state directly.
             newProblem: "",
             newDate: ""
         }));
