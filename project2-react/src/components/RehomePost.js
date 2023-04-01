@@ -4,10 +4,10 @@ import axios from "axios";
 
 export default class RehomePost extends React.Component {
 
-    constructor(props) {
-        super(props);
-        // this.checkParentInfo();
-    }
+    // constructor(props) {
+    //     super(props);
+    //     // this.checkParentInfo();
+    // }
 
     state = {
         catName: "",
@@ -98,20 +98,20 @@ export default class RehomePost extends React.Component {
     }
 
 
-    static getDerivedStateFromProps(props, state) {
-        if (props.cat !== null) {
-            //Change in props
-            console.log("props:", props);
-            return {
-                catName: props.cat.cat.catName,
-                catBreed: props.cat.cat.catBreed,
-                catAge: props.cat.cat.catAge,
-                catGender: props.cat.cat.catGender,
-                editFlag: true
-            };
-        }
-        return null; // No change to state
-    }
+    // static getDerivedStateFromProps(props, state) {
+    //     if (props.cat !== null) {
+    //         //Change in props
+    //         console.log("props:", props);
+    //         return {
+    //             catName: props.cat.cat.catName,
+    //             catBreed: props.cat.cat.catBreed,
+    //             catAge: props.cat.cat.catAge,
+    //             catGender: props.cat.cat.catGender,
+    //             editFlag: true
+    //         };
+    //     }
+    //     return null; // No change to state
+    // }
 
     postCats = async (userID) => {
         console.log('postCats');
@@ -133,6 +133,8 @@ export default class RehomePost extends React.Component {
             });
 
         console.log(result.data)
+        // redirect
+        this.props.switchPage("browsecat", null);
     }
 
     /**
@@ -188,9 +190,9 @@ export default class RehomePost extends React.Component {
             </div>);
     }
 
-    checkSession() {
-        this.checkParentInfo();
-    }
+    // checkSession() {
+    //     this.checkParentInfo();
+    // }
 
     render() {
 

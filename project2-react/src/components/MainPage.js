@@ -10,7 +10,7 @@ export default class MainPage extends React.Component{
     state = {
         "activePage": "browsecat",
         cats: [],
-        cat : null
+        cat : null,
     }
 
     renderPage(){
@@ -32,7 +32,7 @@ export default class MainPage extends React.Component{
         console.log("value cat switch page",cat);
         this.setState({
             "activePage": newPage,
-            "cat": cat
+            "cat": cat,
         })
     }
 

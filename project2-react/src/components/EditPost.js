@@ -15,8 +15,8 @@ export default class EditPost extends React.Component {
         updatedComment: this.props.cat.cat.comment,
         updatedMedicalHistory: this.props.cat.cat.medicalHistory,
         updatedPictureUrl: this.props.cat.cat.pictureUrl,
-       updateUserID: this.props.cat.cat.userID,
-       updateCatId:this.props.cat.cat._id
+        updateUserID: this.props.cat.cat.userID,
+        updateCatId: this.props.cat.cat._id
     }
 
     onUpdateForm = (event) => {
@@ -26,7 +26,7 @@ export default class EditPost extends React.Component {
     }
 
     updateCat = async () => {
-        console.log('ID',this.state.updateCatId);
+        console.log('ID', this.state.updateCatId);
         const result = await axios.put(`${BASE_API}catCollection/${this.state.updateCatId}`,
             {
                 userID: this.state.updateUserID, //this.state.userID
@@ -43,7 +43,7 @@ export default class EditPost extends React.Component {
                 pictureUrl: this.state.updatedPictureUrl,
                 //_id: this.state.updateCatId
             });
-
+        this.props.switchPage("browsecat", null)
         console.log(result.data)
     }
 
@@ -251,7 +251,7 @@ export default class EditPost extends React.Component {
                     <label> Comment:</label>
                     <input type="text" className="form-control" value={this.state.updatedComment}
                         name="updatedComment"
-                        onChange={this.onUpdateForm}/>
+                        onChange={this.onUpdateForm} />
                 </div>
                 <div>
                     <label> Picture:</label>
@@ -337,7 +337,7 @@ export default class EditPost extends React.Component {
             date: this.state.newDate
         };
 
-        console.log('newRecord',newRecord);
+        console.log('newRecord', newRecord);
         this.setState(prevState => ({
             updatedMedicalHistory: [...prevState.updatedMedicalHistory, newRecord],
             newProblem: "",

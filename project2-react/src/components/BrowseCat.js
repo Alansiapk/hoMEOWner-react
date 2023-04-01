@@ -6,7 +6,8 @@ import { Card, Row, Col, Modal, Button } from 'react-bootstrap';
 export default class BrowseCat extends React.Component {
 
     state = {
-        
+        searchCatName: "",
+        reload: false,
         cat: {},
         cats: [],
         users: [],
@@ -35,7 +36,7 @@ export default class BrowseCat extends React.Component {
             const response = await axios.get(`${BASE_API}catCollection`);
 
             this.setState({
-                cats: response.data.catCollection
+                cats: response.data.catCollection,
             })
 
             console.log('cats...',response.data.catCollection)
@@ -98,6 +99,13 @@ export default class BrowseCat extends React.Component {
         });
     }
 
+    deleteCat = async () => {
+        const result = await axios.delete(`${BASE_API}catCollection/${this.state.cat._id}`);
+        console.log(result);
+        this.closePost();
+        this.loadCats();
+    }
+
     generateMedicalHistoryField =() =>{
         let field = <div></div>;
         let arrayMedicalHistory = [];
@@ -117,6 +125,22 @@ export default class BrowseCat extends React.Component {
         return field;
     }
 
+    updateFormField = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    searchCats = async () => {
+        const response = await axios.get(`${BASE_API}catCollection`, {
+            params: {
+                catName: this.state.searchCatName  //////
+            }
+        });
+        this.setState({
+            cats: response.data.catCollection
+        });
+    }
 
     render() {
         let medicalField = this.generateMedicalHistoryField();
@@ -126,6 +150,15 @@ export default class BrowseCat extends React.Component {
             <div style={{ backgroundColor: "#274060", minHeight: "100vh" }}>
                 <div className="text-center text-white py-5">
                     <h1>Cats for Adoption</h1>
+                </div>
+                <div>
+                    <input 
+                        name="searchCatName"
+                        value={this.searchCatName}
+                        onChange={this.updateFormField} //////
+                    />
+
+                    <button onClick={this.searchCats}>Search</button>
                 </div>
                 <Row className="justify-content-center">
                     {this.state.cats.map(cat => (
@@ -146,7 +179,7 @@ export default class BrowseCat extends React.Component {
                                         <p>Comment: {cat.comment}</p>
                                     </Card.Text>
                                     {this.state.users.map(user => (
-                                        console.log(`${user._id} === ${cat.userID}`, user._id === cat.userID),
+                                        // console.log(`${user._id} === ${cat.userID}`, user._id === cat.userID),
                                         user._id === cat.userID && (
                                             <div key={user._id}>
                                                 <Card.Subtitle className="mt-3 mb-2 text-white">Owner Information</Card.Subtitle>
@@ -179,7 +212,7 @@ export default class BrowseCat extends React.Component {
                                         <Button onClick={this.editCat} variant="primary">
                                             Edit
                                         </Button>
-                                        <Button variant="danger">
+                                        <Button onClick={this.deleteCat} variant="danger">
                                             Delete
                                         </Button>
                                     </Modal.Footer>
