@@ -7,6 +7,10 @@ export default class BrowseCat extends React.Component {
 
     state = {
         searchCatName: "", ////
+        searchCatBreed:"",
+        searchRequireHomeVisit:"",
+        searchCatGender:"",
+        searchNeutered:"",
         reload: false,
         cat: {},
         cats: [],
@@ -134,7 +138,12 @@ export default class BrowseCat extends React.Component {
     searchCats = async () => {
         const response = await axios.get(`${BASE_API}catCollection`, {
             params: {
-                catName: this.state.searchCatName  //////
+                catName: this.state.searchCatName,  //////
+                catBreed:this.state.searchCatBreed,
+                catGender:this.state.searchCatGender,
+                requireHomeVisit:this.state.searchRequireHomeVisit,
+                neutered:this.state.searchNeutered
+
             }
         });
         this.setState({
@@ -147,16 +156,85 @@ export default class BrowseCat extends React.Component {
 
 
         return (
-            <div style={{ backgroundColor: "#274060", minHeight: "100vh" }}>
+            <div style={{ backgroundColor: "#29E0E0", minHeight: "100vh" }}>
                 <div className="text-center text-white py-5">
                     <h1>Cats for Adoption</h1>
                 </div>
                 <div>
-                    <input 
-                        name="searchCatName"
-                        value={this.searchCatName}
-                        onChange={this.updateFormField} //////
-                    />
+                    <div>
+                    <label>Cat Breed:</label>
+                    <select className="form-control"
+                        name="searchCatBreed"
+                        value={this.searchCatBreed}
+                        onChange={this.updateFormField}>//////
+                        <option value="Singapore Cat">Singapura Cat</option>
+                            <option value="Persian">Persian</option>
+                            <option value="Ragdoll">Ragdoll</option>
+                            <option value="Maine Coon">Maine Coon</option>
+                            <option value="Bengal">Bengal</option>
+                            <option value="Siamese">Siamese</option>
+                            <option value="Munchkin">Munchkin</option>
+                            <option value="Siberian">Siberian</option>
+                            <option value="Russian Blue">Russian Blue</option>
+                            <option value="British Shorthair">British Shorthair</option>
+                            <option value="others">Others</option>
+                        </select>
+                        <div>
+                        <label>Cat Gender:</label>
+                        <input type="radio"
+                            value="Male"
+                            name="searchCatGender"
+                            className="form-check-input"
+                            checked={this.state.searchCatGender == "Male"}
+                            onChange={this.updateFormField} />
+                        <label className="form-check-label">Male</label>
+
+                        <input type="radio"
+                            value="Female"
+                            name="searchCatGender"
+                            className="form-check-input" 
+                            checked={this.state.searchCatGender == "Female"}
+                            onChange={this.updateFormField} />
+                        <label>Female</label>
+                    </div>
+                    </div>
+                    <div>
+                        <label>Required Home Visit:</label>
+                        <input type="radio"
+                            value="Required"
+                            name="homeVisit"
+                            className="form-check-input"
+                            checked={this.state.searchRequireHomeVisit == "Yes Required"}
+                            onChange={this.updateFormField} />
+                        <label className="form-check-label">Yes</label>
+
+                        <input type="radio"
+                            value="Not Required"
+                            name="homeVisit"
+                            className="form-check-input"
+                            checked={this.state.searchRequireHomeVisit == "Not Required"}
+                            onChange={this.updateFormField} />
+                        <label className="form-check-label">No</label>
+                    </div>
+                    <div>
+                        <label>Neutered:</label>
+                        <input type="radio"
+                            value="Neutered"
+                            name="neutered"
+                            className="form-check-input"
+                            checked={this.state.searchNeutered == "Neutered"}
+                            onChange={this.updateFormField} />
+                        <label className="form-check-label">Yes</label>
+
+                        <input type="radio"
+                            value="NotNeutered"
+                            name="neutered"
+                            className="form-check-input"
+                            checked={this.state.searchNeutered == "NotNeutered"}
+                            onChange={this.updateFormField} />
+                        <label className="form-check-label">No</label>
+                    </div>
+                    
 
                     <button onClick={this.searchCats}>Search</button>
                 </div>

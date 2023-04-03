@@ -76,6 +76,7 @@ export default class RehomePost extends React.Component {
     }
 
     postUser = async () => {
+        console.log('postUser====')
         try {
             let userID;
             let { catName, catAge, catGender, catBreed, requireHomeVisit, newProfileFlag } = this.state;
@@ -86,7 +87,7 @@ export default class RehomePost extends React.Component {
             //     if(!this.state.requireHomeVisit){return alert("Please select if require home visit")}
 
             if (!catName) {
-                alert("Please provide cat name");
+                alert("name length must be more than 4 character")
             } else if (!catAge) {
                 alert("Please select cat gender")
             } else if (!catGender) {
@@ -97,8 +98,6 @@ export default class RehomePost extends React.Component {
                 alert("Please select if require home visit")
             } else {
                 if (this.state.newProfileFlag) {
-
-
                     const response = await axios.post(`${BASE_API}userCollection`,
                         {
                             name: this.state.name,
@@ -117,7 +116,7 @@ export default class RehomePost extends React.Component {
                 this.postCats(userID);
             }
 
-
+            console.log('postUser finished===')
         } catch (error) {
             console.log("🚀 ~ file: RehomePost.js:99 ~ RehomePost ~ postUser= ~ error:", error)
             // return alert("Please provide name")
@@ -147,8 +146,9 @@ export default class RehomePost extends React.Component {
     postCats = async (userID) => {
 
         try {
-            console.log('postCats');
+            console.log('postCats====');
             console.log("UserID", userID);
+            // const result = {data:[]};
             const result = await axios.post(`${BASE_API}catCollection`,
                 {
                     userID: userID, //this.state.userID
@@ -164,12 +164,14 @@ export default class RehomePost extends React.Component {
                     medicalHistory: this.state.medicalHistory,
                     pictureUrl: this.state.pictureUrl,
                 });
-
+            console.log('finished post cat====')
             console.log(result.data)
             // redirect
             this.props.switchPage("browsecat", null);
         } catch (error) {
-            console.log(error)
+            alert(error.response.data.error);
+            console.error('Failed to post cat.');
+            console.log(error);
             //return alert(error)
         }
 
@@ -274,7 +276,7 @@ export default class RehomePost extends React.Component {
                     </div>
                     <div>
                         <label> Cat Age:</label>
-                        <input type="number" className="form-control" value={this.state.catAge}
+                        <input type="text" className="form-control" value={this.state.catAge}
                             onChange={this.updateCatAge} />
                     </div>
                     <div>
@@ -417,7 +419,7 @@ export default class RehomePost extends React.Component {
                         <form onSubmit={this.addMedicalRecord}>
                             <div className="form-group">
                                 <label htmlFor="problem">Problem:</label>
-                                <input type="text" className="form-control" id="problem"
+                                <input placeholder="Please key in medical history" type="text" className="form-control" id="problem"
                                     value={this.state.newProblem}
                                     onChange={(e) => this.setState({ newProblem: e.target.value })}
                                 />
@@ -439,12 +441,12 @@ export default class RehomePost extends React.Component {
                     </div>
                     <div>
                         <label> Comment:</label>
-                        <input type="text" className="form-control" value={this.state.comment}
+                        <input placeholder="Please describe your cat" type="text" className="form-control" value={this.state.comment}
                             onChange={this.updateComment} />
                     </div>
                     <div>
                         <label> Picture:</label>
-                        <input type="text" className="form-control" value={this.state.pictureUrl}
+                        <input placeholder="Upload a picture of the cat in URL format" type="text" className="form-control" value={this.state.pictureUrl}
                             onChange={this.updatePicture} />
                     </div>
 
