@@ -55,6 +55,7 @@ export default class RehomePost extends React.Component {
     changeUserOption = async () => {
 
         let selected = document.getElementById("userSelection");
+        console.log("🚀 ~ file: RehomePost.js:58 ~ RehomePost ~ changeUserOption= ~ selected:", selected.value)
         if (selected.value === "1") { // registered
             this.setState({
                 "newProfileFlag": false
@@ -75,26 +76,56 @@ export default class RehomePost extends React.Component {
     }
 
     postUser = async () => {
-        let userID;
-        if (this.state.newProfileFlag) {
+        try {
+            let userID;
+            let { catName, catAge, catGender, catBreed, requireHomeVisit, newProfileFlag } = this.state;
+            // if(!this.state.catName){ }
+            //     if(!this.state.catAge){ return alert("Please provide cat age") }
+            //     if(!this.state.catGender){ return alert("Please select cat gender") }
+            //     if(!this.state.catBreed){return alert("Please provide cat breed")}
+            //     if(!this.state.requireHomeVisit){return alert("Please select if require home visit")}
+
+            if (!catName) {
+                alert("Please provide cat name");
+            } else if (!catAge) {
+                alert("Please select cat gender")
+            } else if (!catGender) {
+                alert("Please provide cat gender")
+            } else if (!catBreed) {
+                alert("Please provide cat breed")
+            } else if (!requireHomeVisit) {
+                alert("Please select if require home visit")
+            } else {
+                if (this.state.newProfileFlag) {
 
 
-            const response = await axios.post(`${BASE_API}userCollection`,
-                {
-                    name: this.state.name,
-                    email: this.state.email
-                });
+                    const response = await axios.post(`${BASE_API}userCollection`,
+                        {
+                            name: this.state.name,
+                            email: this.state.email
+                        });
 
-            //insertedID to retrieve data upon request successfully called
-            //status = success or failuer of API call
+                    //insertedID to retrieve data upon request successfully called
+                    //status = success or failuer of API call
 
-            userID = response.data.status.insertedId;
-            console.log("UserID", userID);
+                    userID = response.data.status.insertedId;
+                    //console.log("UserID", userID);
 
-        } else {
-            userID = document.getElementById("userID").value;
+                } else {
+                    userID = document.getElementById("userID").value;
+                }
+                this.postCats(userID);
+            }
+
+
+        } catch (error) {
+            console.log("🚀 ~ file: RehomePost.js:99 ~ RehomePost ~ postUser= ~ error:", error)
+            // return alert("Please provide name")
+
+            //return alert(error)
+
         }
-        this.postCats(userID);
+
     }
 
 
@@ -114,27 +145,36 @@ export default class RehomePost extends React.Component {
     // }
 
     postCats = async (userID) => {
-        console.log('postCats');
-        console.log("UserID", userID);
-        const result = await axios.post(`${BASE_API}catCollection`,
-            {
-                userID: userID, //this.state.userID
-                catName: this.state.catName,
-                catBreed: this.state.catBreed,
-                catAge: this.state.catAge,
-                catGender: this.state.catGender,
-                requireHomeVisit: this.state.requireHomeVisit,
-                neutered: this.state.neutered,
-                personality: this.state.personality,
-                familyStatus: this.state.familyStatus,
-                comment: this.state.comment,
-                medicalHistory: this.state.medicalHistory,
-                pictureUrl: this.state.pictureUrl,
-            });
 
-        console.log(result.data)
-        // redirect
-        this.props.switchPage("browsecat", null);
+        try {
+            console.log('postCats');
+            console.log("UserID", userID);
+            const result = await axios.post(`${BASE_API}catCollection`,
+                {
+                    userID: userID, //this.state.userID
+                    catName: this.state.catName,
+                    catBreed: this.state.catBreed,
+                    catAge: this.state.catAge,
+                    catGender: this.state.catGender,
+                    requireHomeVisit: this.state.requireHomeVisit,
+                    neutered: this.state.neutered,
+                    personality: this.state.personality,
+                    familyStatus: this.state.familyStatus,
+                    comment: this.state.comment,
+                    medicalHistory: this.state.medicalHistory,
+                    pictureUrl: this.state.pictureUrl,
+                });
+
+            console.log(result.data)
+            // redirect
+            this.props.switchPage("browsecat", null);
+        } catch (error) {
+            console.log(error)
+            //return alert(error)
+        }
+
+
+
     }
 
     /**
@@ -197,7 +237,7 @@ export default class RehomePost extends React.Component {
     render() {
 
 
-        console.log("state:", this.state);
+        // console.log("state:", this.state);
         let newProfile = <div></div>;
         let userSelection = <div></div>;
 
@@ -227,9 +267,10 @@ export default class RehomePost extends React.Component {
                     <h2>Cat Details</h2>
                     <div>
                         <label> Cat Name:</label>
-                        <input type="text" className="form-control" 
+                        <input type="text" className="form-control"
                             value={this.state.catName}
                             onChange={this.updateCatName} />
+                        {!this.state.catName ? (<p>Please input cat name</p>) : (<p></p>)}
                     </div>
                     <div>
                         <label> Cat Age:</label>

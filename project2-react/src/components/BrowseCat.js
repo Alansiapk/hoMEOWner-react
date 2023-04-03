@@ -6,7 +6,7 @@ import { Card, Row, Col, Modal, Button } from 'react-bootstrap';
 export default class BrowseCat extends React.Component {
 
     state = {
-        searchCatName: "",
+        searchCatName: "", ////
         reload: false,
         cat: {},
         cats: [],

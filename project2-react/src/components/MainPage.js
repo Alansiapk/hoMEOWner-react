@@ -4,6 +4,8 @@ import RehomePost from './RehomePost';
 import EditPost from "./EditPost";
 import BASE_API from './BaseApi';
 import axios from "axios";
+import './style.css';
+
 
 export default class MainPage extends React.Component{
 
@@ -40,7 +42,8 @@ export default class MainPage extends React.Component{
 
     render() {
         return <React.Fragment>
-            <nav className="navbar navbar-expand-sm bg-light">
+            
+            <nav className="navbar navbar-expand-sm">
                 <div className="container-fluid">
                     {/* Links */}
                     <ul className="navbar-nav">
