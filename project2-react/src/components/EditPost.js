@@ -72,8 +72,10 @@ export default class EditPost extends React.Component {
                     <select className="form-control"
                         name="updatedCatBreed"
                         value={this.state.updatedCatBreed}
-                        onChange={this.onUpdateForm}>
-                        <option value="Singapore Cat">Singapura Cat</option>
+                        onChange={this.onUpdateForm}
+                        defaultValue="Singapura Cat">
+
+                        <option value="Singapura Cat">Singapura Cat</option>
                         <option value="Persian">Persian</option>
                         <option value="Ragdoll">Ragdoll</option>
                         <option value="Maine Coon">Maine Coon</option>

@@ -7,10 +7,10 @@ export default class BrowseCat extends React.Component {
 
     state = {
         searchCatName: "", ////
-        searchCatBreed:"",
-        searchRequireHomeVisit:"",
-        searchCatGender:"",
-        searchNeutered:"",
+        searchCatBreed: "",
+        searchRequireHomeVisit: "",
+        searchCatGender: "",
+        searchNeutered: "",
         reload: false,
         cat: {},
         cats: [],
@@ -32,7 +32,7 @@ export default class BrowseCat extends React.Component {
         name: "",
         email: "",
         userID: "",
-        _id:""
+        _id: ""
     }
 
     loadCats = async () => {
@@ -43,7 +43,7 @@ export default class BrowseCat extends React.Component {
                 cats: response.data.catCollection,
             })
 
-            console.log('cats...',response.data.catCollection)
+            console.log('cats...', response.data.catCollection)
         } catch (error) {
             console.error(error)
         }
@@ -69,8 +69,8 @@ export default class BrowseCat extends React.Component {
     }
 
 
-    togglePost = (cat,user) => {
-        console.log('cat',cat)
+    togglePost = (cat, user) => {
+        console.log('cat', cat)
         this.setState({
             cat: cat,
             catBeingViewed: cat._id,
@@ -85,7 +85,7 @@ export default class BrowseCat extends React.Component {
             comment: cat.familyStatus,
             medicalHistory: cat.medicalHistory,
             pictureUrl: cat.pictureUrl,
-          //  users:cat
+            //  users:cat
             // userID: ""
         })
     }
@@ -97,7 +97,7 @@ export default class BrowseCat extends React.Component {
     }
 
     editCat = () => {
-        console.log('cats...',this.state.cat)
+        console.log('cats...', this.state.cat)
         this.props.switchPage("editpost", {
             cat: this.state.cat
         });
@@ -110,17 +110,17 @@ export default class BrowseCat extends React.Component {
         this.loadCats();
     }
 
-    generateMedicalHistoryField =() =>{
+    generateMedicalHistoryField = () => {
         let field = <div></div>;
         let arrayMedicalHistory = [];
 
         //check if it is not null && at least have one element
-        if (this.state.medicalHistory!== null && this.state.medicalHistory.length>0){
-            for(let i=0; i<this.state.medicalHistory.length; i++){
+        if (this.state.medicalHistory !== null && this.state.medicalHistory.length > 0) {
+            for (let i = 0; i < this.state.medicalHistory.length; i++) {
 
                 arrayMedicalHistory.push(<div>
                     {this.state.medicalHistory[i].problem} reported on {this.state.medicalHistory[i].date}
-                    </div>);
+                </div>);
             }
 
             field = <div>{arrayMedicalHistory}</div>;
@@ -139,10 +139,10 @@ export default class BrowseCat extends React.Component {
         const response = await axios.get(`${BASE_API}catCollection`, {
             params: {
                 catName: this.state.searchCatName,  //////
-                catBreed:this.state.searchCatBreed,
-                catGender:this.state.searchCatGender,
-                requireHomeVisit:this.state.searchRequireHomeVisit,
-                neutered:this.state.searchNeutered
+                catBreed: this.state.searchCatBreed,
+                catGender: this.state.searchCatGender,
+                requireHomeVisit: this.state.searchRequireHomeVisit,
+                neutered: this.state.searchNeutered
 
             }
         });
@@ -162,12 +162,14 @@ export default class BrowseCat extends React.Component {
                 </div>
                 <div>
                     <div>
-                    <label>Cat Breed:</label>
-                    <select className="form-control"
-                        name="searchCatBreed"
-                        value={this.searchCatBreed}
-                        onChange={this.updateFormField}>//////
-                        <option value="Singapore Cat">Singapura Cat</option>
+                        <label>Cat Breed:</label>
+                        <select className="form-control"
+                            name="searchCatBreed"
+                            value={this.searchCatBreed}
+                            onChange={this.updateFormField}
+                            defaultValue="Singapura Cat">
+
+                            <option value="Singapura Cat">Singapura Cat</option>
                             <option value="Persian">Persian</option>
                             <option value="Ragdoll">Ragdoll</option>
                             <option value="Maine Coon">Maine Coon</option>
@@ -180,29 +182,29 @@ export default class BrowseCat extends React.Component {
                             <option value="others">Others</option>
                         </select>
                         <div>
-                        <label>Cat Gender:</label>
-                        <input type="radio"
-                            value="Male"
-                            name="searchCatGender"
-                            className="form-check-input"
-                            checked={this.state.searchCatGender == "Male"}
-                            onChange={this.updateFormField} />
-                        <label className="form-check-label">Male</label>
+                            <label>Cat Gender:</label>
+                            <input type="radio"
+                                value="Male"
+                                name="searchCatGender"
+                                className="form-check-input"
+                                checked={this.state.searchCatGender == "Male"}
+                                onChange={this.updateFormField} />
+                            <label className="form-check-label">Male</label>
 
-                        <input type="radio"
-                            value="Female"
-                            name="searchCatGender"
-                            className="form-check-input" 
-                            checked={this.state.searchCatGender == "Female"}
-                            onChange={this.updateFormField} />
-                        <label>Female</label>
-                    </div>
+                            <input type="radio"
+                                value="Female"
+                                name="searchCatGender"
+                                className="form-check-input"
+                                checked={this.state.searchCatGender == "Female"}
+                                onChange={this.updateFormField} />
+                            <label>Female</label>
+                        </div>
                     </div>
                     <div>
                         <label>Required Home Visit:</label>
                         <input type="radio"
                             value="Required"
-                            name="homeVisit"
+                            name="searchRequireHomeVisit"
                             className="form-check-input"
                             checked={this.state.searchRequireHomeVisit == "Yes Required"}
                             onChange={this.updateFormField} />
@@ -210,7 +212,7 @@ export default class BrowseCat extends React.Component {
 
                         <input type="radio"
                             value="Not Required"
-                            name="homeVisit"
+                            name="searchRequireHomeVisit"
                             className="form-check-input"
                             checked={this.state.searchRequireHomeVisit == "Not Required"}
                             onChange={this.updateFormField} />
@@ -220,7 +222,7 @@ export default class BrowseCat extends React.Component {
                         <label>Neutered:</label>
                         <input type="radio"
                             value="Neutered"
-                            name="neutered"
+                            name="searchNeutered"
                             className="form-check-input"
                             checked={this.state.searchNeutered == "Neutered"}
                             onChange={this.updateFormField} />
@@ -228,13 +230,13 @@ export default class BrowseCat extends React.Component {
 
                         <input type="radio"
                             value="NotNeutered"
-                            name="neutered"
+                            name="searchNeutered"
                             className="form-check-input"
                             checked={this.state.searchNeutered == "NotNeutered"}
                             onChange={this.updateFormField} />
                         <label className="form-check-label">No</label>
                     </div>
-                    
+
 
                     <button onClick={this.searchCats}>Search</button>
                 </div>
@@ -242,7 +244,7 @@ export default class BrowseCat extends React.Component {
                     {this.state.cats.map(cat => (
                         <Col key={cat.id} md={6} className="my-3">
                             <Card className="mb-4" style={{ backgroundColor: "#65afff" }}>
-                                <Card.Img variant="top" src={cat.pictureUrl} />
+                                <Card.Img variant="top" src={cat.pictureUrl} style={{ padding: "5px", width: "100%", height: "320px", objectFit: "cover" }} />
                                 <Card.Body>
                                     <Card.Title className="text-white">{cat.catName}</Card.Title>
                                     <Card.Subtitle className="mb-2">{cat.catBreed}</Card.Subtitle>
@@ -274,7 +276,7 @@ export default class BrowseCat extends React.Component {
                                     <Modal.Header closeButton onClick={this.closePost}>
                                         <Modal.Title>More info</Modal.Title>
                                     </Modal.Header>
-                                    <Modal.Body><img src={this.state.pictureUrl} /></Modal.Body>
+                                    <Modal.Body ><img src={this.state.pictureUrl} style={{ padding: "5px", width: "100%", height: "250px", objectFit: "cover" }} /></Modal.Body>
                                     <Modal.Body>Cat Name: {this.state.catName}</Modal.Body>
                                     <Modal.Body>Cat Breed: {this.state.catBreed}</Modal.Body>
                                     <Modal.Body>Cat Age: {this.state.catAge}</Modal.Body>

@@ -284,8 +284,10 @@ export default class RehomePost extends React.Component {
                         <select className="form-control"
                             name="catBreed"
                             value={this.state.catBreed}
-                            onChange={this.updateFormField}>
-                            <option value="Singapore Cat">Singapura Cat</option>
+                            onChange={this.updateFormField}
+                            defaultValue="Singapura Cat">
+
+                            <option value="Singapura Cat">Singapura Cat</option>
                             <option value="Persian">Persian</option>
                             <option value="Ragdoll">Ragdoll</option>
                             <option value="Maine Coon">Maine Coon</option>
