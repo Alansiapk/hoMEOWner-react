@@ -193,7 +193,7 @@ export default class RehomePost extends React.Component {
      */
     userSelectionField = () => {
         let options = [];
-        let select = <div>Please select the above option to continue</div>;
+        let select = <div className='m-1'>Please select the above option to continue</div>;
 
         if (this.state.users.length > 0) {
             select = <select id="userID">
@@ -220,12 +220,12 @@ export default class RehomePost extends React.Component {
         return (
             <div>
                 <div>
-                    <label> Owner Name:</label>
+                    <label className='m-1'> Owner Name:</label>
                     <input type="text" className="form-control" value={this.state.name}
                         onChange={this.updateName} />
                 </div>
                 <div>
-                    <label> Email:</label>
+                    <label className='m-1'> Email:</label>
                     <input type="email" className="form-control" value={this.state.email}
                         onChange={this.updateEmail} />
                 </div>
@@ -268,20 +268,20 @@ export default class RehomePost extends React.Component {
                     <h1>Rehome Your Cat </h1>
                     <h2>Cat Details</h2>
                     <div>
-                        <label> Cat Name:</label>
+                        <label className='m-1'> Cat Name:</label>
                         <input type="text" className="form-control"
                             value={this.state.catName}
                             onChange={this.updateCatName} />
                         {!this.state.catName ? (<p>Please input cat name</p>) : (<p></p>)}
                     </div>
                     <div>
-                        <label> Cat Age:</label>
-                        <input type="number" className="form-control" value={this.state.catAge}
+                        <label className='m-1'> Cat Age:</label>
+                        <input type="text" className="form-control" value={this.state.catAge}
                             onChange={this.updateCatAge} />
                         {!this.state.catAge ? <p>Please input cat age</p> : null}
                     </div>
                     <div>
-                        <label>Cat Breed:</label>
+                        <label className='m-1'>Cat Breed:</label>
                         <select className="form-control"
                             name="catBreed"
                             value={this.state.catBreed}
@@ -302,139 +302,139 @@ export default class RehomePost extends React.Component {
                         </select>
                     </div>
 
-                    <div>
-                        <label>Cat Gender:</label>
+                    <div className='mt-2'>
+                        <label className=' me-2'>Cat Gender:</label>
                         <input type="radio"
                             value="Male"
                             name="catGender"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.catGender == "Male"}
                             onChange={this.updateCatGender} />
-                        <label className="form-check-label">Male</label>
+                        <label className="form-check-label me-2" >Male</label>
 
                         <input type="radio"
                             value="Female"
                             name="catGender"
-                            className="form-check-input" checked={this.state.catGender == "Female"}
+                            className="form-check-input me-1" checked={this.state.catGender == "Female"}
                             onChange={this.updateCatGender} />
-                        <label>Female</label>
+                        <label className="form-check-label me-2">Female</label>
                     </div>
                     <div>
-                        <label>Required Home Visit:</label>
+                        <label className='me-2'>Required Home Visit:</label>
                         <input type="radio"
                             value="Yes Required"
                             name="homeVisit"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.requireHomeVisit == "Yes Required"}
                             onChange={this.updateRequireHomeVisit} />
-                        <label className="form-check-label">Yes</label>
+                        <label className="form-check-label me-2">Yes</label>
 
                         <input type="radio"
                             value="Not Required"
                             name="homeVisit"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.requireHomeVisit == "Not Required"}
                             onChange={this.updateRequireHomeVisit} />
-                        <label className="form-check-label">No</label>
+                        <label className="form-check-label me-2">No</label>
                     </div>
                     <div>
-                        <label>Neutered:</label>
+                        <label className='me-2'>Neutered:</label>
                         <input type="radio"
                             value="Neutered"
                             name="neutered"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.neutered == "Neutered"}
                             onChange={this.updateNeutered} />
-                        <label className="form-check-label">Yes</label>
+                        <label className="form-check-label me-2">Yes</label>
 
                         <input type="radio"
                             value="NotNeutered"
                             name="neutered"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.neutered == "NotNeutered"}
                             onChange={this.updateNeutered} />
-                        <label className="form-check-label">No</label>
+                        <label className="form-check-label me-2">No</label>
                     </div>
                     <div>
-                        <label>Personality:</label>
+                        <label className='me-2'>Personality:</label>
                         <input type="checkbox"
                             name="personality"
                             value="i knew too much"
                             onChange={this.updatePersonality} />
-                        <label>I Knew Too Much</label>
+                        <label className="form-check-label me-2">I Knew Too Much</label>
 
                         <input type="checkbox"
                             name="personality"
                             value="party animal"
                             onChange={this.updatePersonality} />
-                        <label>Party animal</label>
+                        <label className="me-2">Party animal</label>
 
                         <input type="checkbox"
                             name="personality"
                             value="love bug"
                             onChange={this.updatePersonality} />
-                        <label>Love Bug</label>
+                        <label className="me-2">Love Bug</label>
 
                         <input type="checkbox"
                             name="personality"
                             value="secret admirer"
                             onChange={this.updatePersonality} />
-                        <label>Secret Admirer</label>
+                        <label className="me-2">Secret Admirer</label>
 
                         <input type="checkbox"
                             name="personality"
                             value="MVP"
                             onChange={this.updatePersonality} />
-                        <label>MVP</label>
+                        <label className="me-2">MVP</label>
 
                         <input type="checkbox"
                             name="personality"
                             value="shy"
                             onChange={this.updatePersonality} />
-                        <label>Shy</label>
+                        <label className="me-2">Shy</label>
 
 
                     </div>
                     <div>
-                        <label>Family Status:</label>
+                        <label className='me-2'>Family Status:</label>
 
                         <input type="checkbox"
                             name="familyStatus"
                             value="Good with kids"
                             onChange={this.updateFamilyStatus} />
-                        <label>Good with kids</label>
+                        <label className="me-2">Good with kids</label>
 
                         <input type="checkbox"
                             name="familyStatus"
                             value="Good with other cats"
                             onChange={this.updateFamilyStatus} />
-                        <label>Good with other cats</label>
+                        <label className="me-2">Good with other cats</label>
 
                         <input type="checkbox"
                             name="familyStatus"
                             value="Leave me alone"
                             onChange={this.updateFamilyStatus} />
-                        <label>Leave me alone</label>
+                        <label className="me-2">Leave me alone</label>
 
                     </div>
                     <div>
-                        <label>Medical History:</label>
+                        <label className='me-2'>Medical History:</label>
                         <form onSubmit={this.addMedicalRecord}>
                             <div className="form-group">
-                                <label htmlFor="problem">Problem:</label>
+                                <label className='m-1' htmlFor="problem">Problem:</label>
                                 <input placeholder="Please key in medical history" type="text" className="form-control" id="problem"
                                     value={this.state.newProblem}
                                     onChange={(e) => this.setState({ newProblem: e.target.value })}
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="date">Date:</label>
+                                <label className='m-1' htmlFor="date">Date:</label>
                                 <input type="date" className="form-control" id="date"
                                     value={this.state.newDate}
                                     onChange={(e) => this.setState({ newDate: e.target.value })}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-primary">Add Record</button>
+                            <button type="submit" className="btn btn-primary m-1">Add Record</button>
                         </form>
                         <ul>
                             {this.state.medicalHistory.map((record, index) => (
@@ -443,18 +443,18 @@ export default class RehomePost extends React.Component {
                         </ul>
                     </div>
                     <div>
-                        <label> Comment:</label>
+                        <label className='me-2'> Comment:</label>
                         <input placeholder="Please describe your cat" type="text" className="form-control" value={this.state.comment}
                             onChange={this.updateComment} />
                     </div>
                     <div>
-                        <label> Picture:</label>
+                        <label className='me-2'> Picture:</label>
                         <input placeholder="Upload a picture of the cat in URL format" type="text" className="form-control" value={this.state.pictureUrl}
                             onChange={this.updatePicture} />
                     </div>
 
-                    <h2>Owner details</h2>
-                    <div>
+                    <h2 className='me-2'>Owner details</h2>
+                    <div className='m-1'>
                         Have you registered before?
                         <select id="userSelection" onChange={this.changeUserOption}>
                             <option value="-1">
@@ -473,7 +473,7 @@ export default class RehomePost extends React.Component {
                     {userSelection}
 
                     <div>
-                        <button onClick={this.postUser}>submit</button>
+                        <button className='m-1' onClick={this.postUser}>submit</button>
                     </div>
                 </div>
             </React.Fragment>

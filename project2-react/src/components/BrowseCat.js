@@ -165,12 +165,12 @@ export default class BrowseCat extends React.Component {
 
 
         return (
-            <div style={{ backgroundColor: "#29E0E0", minHeight: "100vh" }}>
+            <div style={{ backgroundColor: "#9EE6F1", minHeight: "100vh" }}>
                 <div className="text-center text-white py-5">
                     <h1>Cats for Adoption</h1>
                 </div>
-                <div>
-                    <div>
+                <div className="mx-3">
+                    <div  >
                         <label>Cat Breed:</label>
                         <select className="form-control"
                             name="searchCatBreed"
@@ -190,70 +190,70 @@ export default class BrowseCat extends React.Component {
                             <option value="British Shorthair">British Shorthair</option>
                             <option value="others">Others</option>
                         </select>
-                        <div>
-                            <label>Cat Gender:</label>
+                        <div className='mt-2'>
+                            <label className='me-2'>Cat Gender:</label>
                             <input type="radio"
                                 value="Male"
                                 name="searchCatGender"
-                                className="form-check-input"
+                                className="form-check-input me-1"
                                 checked={this.state.searchCatGender == "Male"}
                                 onChange={this.updateFormField} />
-                            <label className="form-check-label">Male</label>
+                            <label className="form-check-label me-2">Male</label>
 
                             <input type="radio"
                                 value="Female"
                                 name="searchCatGender"
-                                className="form-check-input"
+                                className="form-check-input me-1"
                                 checked={this.state.searchCatGender == "Female"}
                                 onChange={this.updateFormField} />
-                            <label>Female</label>
+                            <label className="form-check-label me-2">Female</label>
                         </div>
                     </div>
-                    <div>
-                        <label>Required Home Visit:</label>
+                    <div  className='mt-2'>
+                        <label className='me-2'>Required Home Visit:</label>
                         <input type="radio"
                             value="Yes Required"
                             name="searchRequireHomeVisit"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.searchRequireHomeVisit == "Yes Required"}
                             onChange={this.updateFormField} />
-                        <label className="form-check-label">Yes</label>
+                        <label className="form-check-label me-2">Yes</label>
 
                         <input type="radio"
                             value="Not Required"
                             name="searchRequireHomeVisit"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.searchRequireHomeVisit == "Not Required"}
                             onChange={this.updateFormField} />
-                        <label className="form-check-label">No</label>
+                        <label className="form-check-label me-2">No</label>
                     </div>
-                    <div>
-                        <label>Neutered:</label>
+                    <div  className='my-2'>
+                        <label className='me-2'>Neutered:</label>
                         <input type="radio"
                             value="Neutered"
                             name="searchNeutered"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.searchNeutered == "Neutered"}
                             onChange={this.updateFormField} />
-                        <label className="form-check-label">Yes</label>
+                        <label className="form-check-label me-2">Yes</label>
 
                         <input type="radio"
                             value="NotNeutered"
                             name="searchNeutered"
-                            className="form-check-input"
+                            className="form-check-input me-1"
                             checked={this.state.searchNeutered == "NotNeutered"}
                             onChange={this.updateFormField} />
-                        <label className="form-check-label">No</label>
+                        <label className="form-check-label me-2">No</label>
                     </div>
 
 
-                    <button onClick={this.searchCats}>Search</button>
-                    <button onClick={this.clearFilter}>Clear Filter</button>
+                    <button className="searchButton me-2" onClick={this.searchCats}>Search</button>
+                    <button className="clearFilterButton" onClick={this.clearFilter}>Clear Filter</button>
                 </div>
                 <Row className="justify-content-center">
                     {this.state.cats.map(cat => (
-                        <Col key={cat.id} md={6} className="my-3">
-                            <Card className="mb-4" style={{ backgroundColor: "#65afff" }}>
+                        <Col key={cat.id} md={6} className="my-3 col-sm-12 col-md-6 col-lg-4">
+                            <Card className="mb-4 mx-3" style={{ backgroundColor: "#65afff" }}>
                                 <Card.Img variant="top" src={cat.pictureUrl} style={{ padding: "5px", width: "100%", height: "320px", objectFit: "cover" }} />
                                 <Card.Body>
                                     <Card.Title className="text-white">{cat.catName}</Card.Title>
@@ -272,7 +272,7 @@ export default class BrowseCat extends React.Component {
                                         // console.log(`${user._id} === ${cat.userID}`, user._id === cat.userID),
                                         user._id === cat.userID && (
                                             <div key={user._id}>
-                                                <Card.Subtitle className="mt-3 mb-2 text-white">Owner Information</Card.Subtitle>
+                                                <Card.Subtitle className="mt-2 mb-2 text-white">Owner Information</Card.Subtitle>
                                                 <Card.Text className="text-white">
                                                     <p>Name: {user.name}</p>
                                                     <p>Email: {user.email}</p>
@@ -281,7 +281,7 @@ export default class BrowseCat extends React.Component {
                                         )
                                     ))}
                                 </Card.Body>
-                                <button onClick={() => this.togglePost(cat)}>View</button>
+                                <button className="viewButton" onClick={() => this.togglePost(cat)}>View</button>
                                 <Modal show={this.state.catBeingViewed}>
                                     <Modal.Header closeButton onClick={this.closePost}>
                                         <Modal.Title>More info</Modal.Title>
