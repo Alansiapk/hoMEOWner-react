@@ -151,6 +151,15 @@ export default class BrowseCat extends React.Component {
         });
     }
 
+    clearFilter = () => {
+        this.setState({
+            searchCatBreed: "",
+            searchCatGender: "",
+            searchRequireHomeVisit: "",
+            searchNeutered:"",
+        }, () => this.loadCats())
+    }
+
     render() {
         let medicalField = this.generateMedicalHistoryField();
 
@@ -165,10 +174,10 @@ export default class BrowseCat extends React.Component {
                         <label>Cat Breed:</label>
                         <select className="form-control"
                             name="searchCatBreed"
-                            value={this.searchCatBreed}
+                            value={this.state.searchCatBreed}
                             onChange={this.updateFormField}
-                            defaultValue="Singapura Cat">
-
+                            >
+                            <option value="">-</option>
                             <option value="Singapura Cat">Singapura Cat</option>
                             <option value="Persian">Persian</option>
                             <option value="Ragdoll">Ragdoll</option>
@@ -203,7 +212,7 @@ export default class BrowseCat extends React.Component {
                     <div>
                         <label>Required Home Visit:</label>
                         <input type="radio"
-                            value="Required"
+                            value="Yes Required"
                             name="searchRequireHomeVisit"
                             className="form-check-input"
                             checked={this.state.searchRequireHomeVisit == "Yes Required"}
@@ -239,6 +248,7 @@ export default class BrowseCat extends React.Component {
 
 
                     <button onClick={this.searchCats}>Search</button>
+                    <button onClick={this.clearFilter}>Clear Filter</button>
                 </div>
                 <Row className="justify-content-center">
                     {this.state.cats.map(cat => (

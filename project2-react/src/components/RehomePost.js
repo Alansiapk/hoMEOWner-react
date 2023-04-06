@@ -11,7 +11,7 @@ export default class RehomePost extends React.Component {
 
     state = {
         catName: "",
-        catBreed: [],
+        catBreed: "Singapura Cat",
         catAge: "",
         catGender: "",
         requireHomeVisit: "",
@@ -276,8 +276,9 @@ export default class RehomePost extends React.Component {
                     </div>
                     <div>
                         <label> Cat Age:</label>
-                        <input type="text" className="form-control" value={this.state.catAge}
+                        <input type="number" className="form-control" value={this.state.catAge}
                             onChange={this.updateCatAge} />
+                        {!this.state.catAge ? <p>Please input cat age</p> : null}
                     </div>
                     <div>
                         <label>Cat Breed:</label>
@@ -285,7 +286,7 @@ export default class RehomePost extends React.Component {
                             name="catBreed"
                             value={this.state.catBreed}
                             onChange={this.updateFormField}
-                            defaultValue="Singapura Cat">
+                        >
 
                             <option value="Singapura Cat">Singapura Cat</option>
                             <option value="Persian">Persian</option>
