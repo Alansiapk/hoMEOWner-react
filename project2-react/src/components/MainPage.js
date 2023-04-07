@@ -60,6 +60,7 @@ export default class MainPage extends React.Component {
                                 }}>Browse Cat</a>
                             </li>
 
+
                             <li className="nav-item">
                                 <a className="nav-link" href="#" onClick={() => {
                                     this.switchPage("rehomepost", null)

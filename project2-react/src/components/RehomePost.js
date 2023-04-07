@@ -87,15 +87,15 @@ export default class RehomePost extends React.Component {
             //     if(!this.state.requireHomeVisit){return alert("Please select if require home visit")}
 
             if (!catName) {
-                alert("name length must be more than 4 character")
+                // alert("name length must be more than 3 character")
             } else if (!catAge) {
-                alert("Please select cat gender")
+                // alert("Please select cat gender")
             } else if (!catGender) {
-                alert("Please provide cat gender")
+                // alert("Please provide cat gender")
             } else if (!catBreed) {
                 alert("Please provide cat breed")
             } else if (!requireHomeVisit) {
-                alert("Please select if require home visit")
+                // alert("Please select if require home visit")
             } else {
                 if (this.state.newProfileFlag) {
                     const response = await axios.post(`${BASE_API}userCollection`,
@@ -263,10 +263,11 @@ export default class RehomePost extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="container">
+                <div style={{ backgroundColor: "#DEF5FE"}} className="container">
 
-                    <h1>Rehome Your Cat </h1>
-                    <h2>Cat Details</h2>
+                    {/* <h1>Rehome Your Cat </h1> */}
+                    <h2 className='p-2 mb-4'>Dear Cat Lovers, we understand that life can be unpredictable, and sometimes circumstances change, making it difficult for you to provide the love and care your feline friend deserves. If you find yourself in such a situation, please remember that putting your cat up for adoption is a responsible and compassionate choice.</h2>
+                    <h2>Cat Details:</h2>
                     <div>
                         <label className='m-1'> Cat Name:</label>
                         <input type="text" className="form-control"
@@ -330,7 +331,7 @@ export default class RehomePost extends React.Component {
                         <label className="form-check-label me-2">Yes</label>
 
                         <input type="radio"
-                            value="Not Required"
+                            value= "Not Required"
                             name="homeVisit"
                             className="form-check-input me-1"
                             checked={this.state.requireHomeVisit == "Not Required"}

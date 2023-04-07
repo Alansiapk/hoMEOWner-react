@@ -165,9 +165,12 @@ export default class BrowseCat extends React.Component {
 
 
         return (
-            <div style={{ backgroundColor: "#9EE6F1", minHeight: "100vh" }}>
+            <div style={{ backgroundColor: "#DEF5FE", minHeight: "100vh" }}>
                 <div className="text-center text-white py-5">
-                    <h1>Cats for Adoption</h1>
+                    <h1 className='m-2'>Cats for Adoption</h1>
+                    <h2>Open your heart to a world of love and joy – choose adoption! 🐾 </h2>
+                    <h2>Adopted cats bring endless joy and love, often transforming both their own lives and those of their new families!</h2>
+                    <h2 className='m-3'>Adopt, don't shop!</h2>
                 </div>
                 <div className="mx-3">
                     <div  >
@@ -253,7 +256,7 @@ export default class BrowseCat extends React.Component {
                 <Row className="justify-content-center">
                     {this.state.cats.map(cat => (
                         <Col key={cat.id} md={6} className="my-3 col-sm-12 col-md-6 col-lg-4">
-                            <Card className="mb-4 mx-3" style={{ backgroundColor: "#65afff" }}>
+                            <Card className="mb-4 mx-3cd" style={{ backgroundColor: "#65afff" }}>
                                 <Card.Img variant="top" src={cat.pictureUrl} style={{ padding: "5px", width: "100%", height: "320px", objectFit: "cover" }} />
                                 <Card.Body>
                                     <Card.Title className="text-white">{cat.catName}</Card.Title>
