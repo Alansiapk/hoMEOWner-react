@@ -118,3 +118,14 @@ All pages of the web application can be accessed via the navigation bar. The flo
 ## Testing
 
 Detailed test cases for the web application can be found [here](https://github.com/Alansiapk/hoMEOWner-react/blob/main/test_case_project2.png).
+
+## Deployment
+
+The web application is hosted using [Netlify](https://www.netlify.com/), deployed directly from the main branch of this GitHub repository. For the detailed deployment steps, you may refer [here]().
+
+## Credits & Acknowledgement
+
+- [Google Fonts](https://fonts.google.com/) for the font
+- [StackOverflow](https://stackoverflow.com/) for RegEx in form validation
+- [Readme.so](https://readme.so/) to generate responsive website mockup for README file
+- https://jsonpathfinder.com/ for cat JSON data
