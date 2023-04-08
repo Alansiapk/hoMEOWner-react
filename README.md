@@ -68,3 +68,9 @@ Users want to know where they can hang out. The app provides the names and locat
 The app should load relatively quickly.
 
 Interactions within the app should not be too laggy, or else users may become impatient 
+
+### Structure
+
+All pages of the web application can be accessed via the navigation bar. The flowchart below shows how different features can be accessed:
+
+![Web app structure](https://github.com/Alansiapk/hoMEOWner-react/blob/main/hoMEOWner_%20structure_%20diagram.png)
