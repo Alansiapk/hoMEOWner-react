@@ -279,7 +279,7 @@ export default class EditPost extends React.Component {
                 </div> */}
 
                 <div>
-                    <button onClick={this.updateCat}>Update</button>
+                    <button className="updateButton" onClick={this.updateCat}>Update</button>
                 </div>
             </div>
         </React.Fragment>)

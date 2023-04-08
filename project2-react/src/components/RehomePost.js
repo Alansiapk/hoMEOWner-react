@@ -87,7 +87,7 @@ export default class RehomePost extends React.Component {
             //     if(!this.state.requireHomeVisit){return alert("Please select if require home visit")}
 
             if (!catName) {
-                alert("name length must be more than 3 character")
+                // alert("name length must be more than 3 character")
             } else if (!catAge) {
                 // alert("Please select cat gender")
             } else if (!catGender) {
@@ -480,9 +480,9 @@ export default class RehomePost extends React.Component {
 
                     {newProfile}
                     {userSelection}
-
+                    
                     <div>
-                        <button className='m-1' onClick={this.postUser}>submit</button>
+                        <button className='submitButton m-1' onClick={this.postUser}>submit</button>
                     </div>
                 </div>
             </React.Fragment>
