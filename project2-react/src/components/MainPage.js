@@ -52,8 +52,8 @@ export default class MainPage extends React.Component {
                             src={require("../cat.jpg")}
                             style={{ "width": "10%",
                                     "height": "5%"}}
-                        />
-                        <div className='d-flex'>
+                        />  
+                        <div className='d-flex ml-auto'>
                             <li className="nav-item">
                                 <a className="nav-link" href="#" onClick={() => {
                                     this.switchPage("browsecat", null)
