@@ -74,3 +74,19 @@ Interactions within the app should not be too laggy, or else users may become im
 All pages of the web application can be accessed via the navigation bar. The flowchart below shows how different features can be accessed:
 
 ![Web app structure](https://github.com/Alansiapk/hoMEOWner-react/blob/main/hoMEOWner_%20structure_%20diagram.png)
+
+### Surface
+
+**Colours**: The colour scheme incorporates a mix of light blue and dark blue, which creates a lively appearance for the cat images.
+
+**Fonts**: 'Poppins', sans-serif font was chosen to provide a sleek and modern feel that is easy to read and visually appealing to users.
+
+## Features
+
+| Feature | Description |
+| ----------- | ----------- |
+| Search and filter | The results are displayed instantaneously as the users filter cat listings by different criterias and click the search button. |
+| View full details of cat listings | User can click on each card and it will expand out to a modal that displays all the details of the cat. |
+| Create new cat listing | A form with validation to enter required information to create a cat listing in the database |
+| Edit cat listing | A form with validation to edit changes so that the information is up-to-date and accurate   |
+| Delete cat listing | Allows current cat owners to delete their cat listings from the database after their cats are adopted. |
