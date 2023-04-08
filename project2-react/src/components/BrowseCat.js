@@ -39,6 +39,7 @@ export default class BrowseCat extends React.Component {
         try {
             const response = await axios.get(`${BASE_API}catCollection`);
 
+            console.log("🚀 ~ file: BrowseCat.js:42 ~ BrowseCat ~ loadCats= ~ response:", response.data)
             this.setState({
                 cats: response.data.catCollection,
             })
@@ -70,7 +71,8 @@ export default class BrowseCat extends React.Component {
 
 
     togglePost = (cat, user) => {
-        console.log('cat', cat)
+        console.log("🚀 ~ file: BrowseCat.js:73 ~ BrowseCat ~ cat:", cat)
+        //console.log('cat', cat)
         this.setState({
             cat: cat,
             catBeingViewed: cat._id,
@@ -97,7 +99,7 @@ export default class BrowseCat extends React.Component {
     }
 
     editCat = () => {
-        console.log('cats...', this.state.cat)
+        //console.log('cats...', this.state.cat)
         this.props.switchPage("editpost", {
             cat: this.state.cat
         });
@@ -105,7 +107,7 @@ export default class BrowseCat extends React.Component {
 
     deleteCat = async () => {
         const result = await axios.delete(`${BASE_API}catCollection/${this.state.cat._id}`);
-        console.log(result);
+        //console.log(result);
         this.closePost();
         this.loadCats();
     }
@@ -113,6 +115,8 @@ export default class BrowseCat extends React.Component {
     generateMedicalHistoryField = () => {
         let field = <div></div>;
         let arrayMedicalHistory = [];
+        let { medicalHistory} = this.state;
+        console.log("🚀 ~ file: BrowseCat.js:118 ~ BrowseCat ~ medicalHistory:", medicalHistory)
 
         //check if it is not null && at least have one element
         if (this.state.medicalHistory !== null && this.state.medicalHistory.length > 0) {

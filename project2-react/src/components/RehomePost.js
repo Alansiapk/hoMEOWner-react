@@ -87,7 +87,7 @@ export default class RehomePost extends React.Component {
             //     if(!this.state.requireHomeVisit){return alert("Please select if require home visit")}
 
             if (!catName) {
-                // alert("name length must be more than 3 character")
+                alert("name length must be more than 3 character")
             } else if (!catAge) {
                 // alert("Please select cat gender")
             } else if (!catGender) {
@@ -145,9 +145,14 @@ export default class RehomePost extends React.Component {
 
     postCats = async (userID) => {
 
+        const { newProblem, newDate, medicalHistory} = this.state;
+        console.log("🚀 ~ file: RehomePost.js:149 ~ RehomePost ~ postCats= ~ newDate:", newDate)
+        console.log("🚀 ~ file: RehomePost.js:150 ~ RehomePost ~ postCats= ~ newProblem:", newProblem)
+
         try {
             console.log('postCats====');
             console.log("UserID", userID);
+        
             // const result = {data:[]};
             const result = await axios.post(`${BASE_API}catCollection`,
                 {
@@ -161,9 +166,12 @@ export default class RehomePost extends React.Component {
                     personality: this.state.personality,
                     familyStatus: this.state.familyStatus,
                     comment: this.state.comment,
-                    medicalHistory: this.state.medicalHistory,
                     pictureUrl: this.state.pictureUrl,
+                    problem: this.state.newProblem,
+                    date: this.state.newDate
                 });
+            //const res = await axios.post(BASE_API + "catCollection/medicalHistor/", {medicalBody});
+        
             console.log('finished post cat====')
             console.log(result.data)
             // redirect
@@ -492,8 +500,8 @@ export default class RehomePost extends React.Component {
             medicalHistory: [...prevState.medicalHistory, newRecord],
             // This operator creates a new array that includes all the previous records and the new record. 
             // This is done to preserve the existing records and avoid mutating the state directly.
-            newProblem: "",
-            newDate: ""
+            // newProblem: "",
+            // newDate: ""
         }));
     };
 
