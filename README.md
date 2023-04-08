@@ -90,3 +90,27 @@ All pages of the web application can be accessed via the navigation bar. The flo
 | Create new cat listing | A form with validation to enter required information to create a cat listing in the database |
 | Edit cat listing | A form with validation to edit changes so that the information is up-to-date and accurate   |
 | Delete cat listing | Allows current cat owners to delete their cat listings from the database after their cats are adopted. |
+
+## Limitations & Future Implementations
+
+| Limitation | Future Implementation |
+| ----------- | ----------- |
+| Other users can edit or delete the cat listings of the original creator | Create a user authentication where users can only edit or delete cat listings belonging to them |
+| Browse page will become longer as more listings are created | Implement pagination to limit the number of dog listings per page |
+
+## Technologies Used
+
+### Frontend Framework
+
+1. HTML5
+2. CSS3
+3. Javascript
+4. [React](https://reactjs.org/) for frontend framework
+5. [React Bootstrap](https://react-bootstrap.github.io/) for styling font
+6. [Google Font]('https://fonts.googleapis.com/css2?family=Poppins&display=swap%27') for icons
+7. [Axios](https://github.com/axios/axios) to communicate with ExpressJS server for CRUD (Create, Read, Update, Delete) in database
+
+### Backend Framework
+
+1. [ExpressJS](https://expressjs.com/) & [NodeJS](https://nodejs.org/en/) - minimalist web application framework to help manage servers and routes
+2. [MongoDB & MongoDB Atlas](https://www.mongodb.com/) - manage document-oriented information, store or retrieve information
