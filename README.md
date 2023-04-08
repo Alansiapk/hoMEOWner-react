@@ -114,3 +114,7 @@ All pages of the web application can be accessed via the navigation bar. The flo
 
 1. [ExpressJS](https://expressjs.com/) & [NodeJS](https://nodejs.org/en/) - minimalist web application framework to help manage servers and routes
 2. [MongoDB & MongoDB Atlas](https://www.mongodb.com/) - manage document-oriented information, store or retrieve information
+
+## Testing
+
+Detailed test cases for the web application can be found [here](https://github.com/Alansiapk/hoMEOWner-react/blob/main/test_case_project2.png).
