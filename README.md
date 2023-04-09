@@ -1,7 +1,7 @@
 
 # HoMEOWner
 
-
+![Responsive website](https://github.com/Alansiapk/hoMEOWner-react/blob/main/Screenshot%202023-04-09%20202533.png)
 
 The live demo of the React frontend web application can be accessed [here](https://soft-tartufo-6fa7ef.netlify.app).
 
