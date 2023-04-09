@@ -3,7 +3,10 @@
 
 
 
-The live demo of the website can be accessed "here"
+The live demo of the React frontend web application can be accessed [here](https://soft-tartufo-6fa7ef.netlify.app).
+
+The backend API implementation can be accessed [here](https://dwad22-project2-backend-zte6.onrender.com).
+
 
 ## Project Summary
 
