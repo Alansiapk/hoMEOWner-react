@@ -170,8 +170,10 @@ export default class BrowseCat extends React.Component {
 
         return (
             <div style={{ backgroundColor: "#DEF5FE", minHeight: "100vh" }}>
-                <div className="text-center text-white py-5">
-                    <h1 className='m-2'>Cats for Adoption</h1>
+                <div className="text-center text-white py-3">
+                    <h1 className='m-1'>Cats for Adoption</h1>
+                    <br>
+                    </br>
                     <h2>Open your heart to a world of love and joy – choose adoption! 🐾 </h2>
                     <h2>Adopted cats bring endless joy and love, often transforming both their own lives and those of their new families!</h2>
                     <h2 className='m-3'>Adopt, don't shop!</h2>

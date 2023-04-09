@@ -13,9 +13,9 @@ export default class RehomePost extends React.Component {
         catName: "",
         catBreed: "Singapura Cat",
         catAge: "",
-        catGender: "",
-        requireHomeVisit: "",
-        neutered: "",
+        catGender: "Male",
+        requireHomeVisit: "Yes Required",
+        neutered: "Neutered",
         personality: [],
         familyStatus: [],
         comment: "",
@@ -74,8 +74,57 @@ export default class RehomePost extends React.Component {
         }
 
     }
+    
+    validationSubmit = () =>{
+    
+        this.validPersonality();
+        this.validFamilyStatus();
+
+        if(!this.state.catName){
+            let error = document.querySelector('.invalid-error-catName');
+            error.textContent = 'Please input cat name'
+            return false;
+          }
+        if (!this.state.catAge) {
+            let error = document.querySelector('.invalid-error-catAge');
+            error.textContent = 'Please input cat age'
+            return false;
+          }
+
+          if (!this.state.newProblem) {
+            let error = document.querySelector('.invalid-error-problem');
+            error.textContent = 'Please input Problem'
+            return false;
+          }
+
+          if (!this.state.comment) {
+            let error = document.querySelector('.invalid-error-comment');
+            error.textContent = 'Please input comment'
+            return false;
+          }
+
+          if (!this.state.pictureUrl) {
+            let error = document.querySelector('.invalid-error-picture');
+            error.textContent = 'Please input pictureUrl'
+            return false;
+          }
+
+          if (!this.state.name) {
+            let error = document.querySelector('.invalid-error-name');
+            error.textContent = 'Please input name'
+            return false;
+          }
+
+          if (!this.state.email) {
+            let error = document.querySelector('.invalid-error-email');
+            error.textContent = 'Please input email'
+            return false;
+          }
+    }
+
 
     postUser = async () => {
+        this.validationSubmit();
         console.log('postUser====')
         try {
             let userID;
@@ -85,36 +134,24 @@ export default class RehomePost extends React.Component {
             //     if(!this.state.catGender){ return alert("Please select cat gender") }
             //     if(!this.state.catBreed){return alert("Please provide cat breed")}
             //     if(!this.state.requireHomeVisit){return alert("Please select if require home visit")}
+            
+            if (this.state.newProfileFlag) {
+                const response = await axios.post(`${BASE_API}userCollection`,
+                    {
+                        name: this.state.name,
+                        email: this.state.email
+                    });
 
-            if (!catName) {
-                // alert("name length must be more than 3 character")
-            } else if (!catAge) {
-                // alert("Please select cat gender")
-            } else if (!catGender) {
-                // alert("Please provide cat gender")
-            } else if (!catBreed) {
-                alert("Please provide cat breed")
-            } else if (!requireHomeVisit) {
-                // alert("Please select if require home visit")
+                //insertedID to retrieve data upon request successfully called
+                //status = success or failuer of API call
+
+                userID = response.data.status.insertedId;
+                //console.log("UserID", userID);
+
             } else {
-                if (this.state.newProfileFlag) {
-                    const response = await axios.post(`${BASE_API}userCollection`,
-                        {
-                            name: this.state.name,
-                            email: this.state.email
-                        });
-
-                    //insertedID to retrieve data upon request successfully called
-                    //status = success or failuer of API call
-
-                    userID = response.data.status.insertedId;
-                    //console.log("UserID", userID);
-
-                } else {
-                    userID = document.getElementById("userID").value;
-                }
-                this.postCats(userID);
+                userID = document.getElementById("userID").value;
             }
+            this.postCats(userID);
 
             console.log('postUser finished===')
         } catch (error) {
@@ -145,14 +182,14 @@ export default class RehomePost extends React.Component {
 
     postCats = async (userID) => {
 
-        const { newProblem, newDate, medicalHistory} = this.state;
+        const { newProblem, newDate, medicalHistory } = this.state;
         console.log("🚀 ~ file: RehomePost.js:149 ~ RehomePost ~ postCats= ~ newDate:", newDate)
         console.log("🚀 ~ file: RehomePost.js:150 ~ RehomePost ~ postCats= ~ newProblem:", newProblem)
 
         try {
             console.log('postCats====');
             console.log("UserID", userID);
-        
+
             // const result = {data:[]};
             const result = await axios.post(`${BASE_API}catCollection`,
                 {
@@ -171,7 +208,7 @@ export default class RehomePost extends React.Component {
                     date: this.state.newDate
                 });
             //const res = await axios.post(BASE_API + "catCollection/medicalHistor/", {medicalBody});
-        
+
             console.log('finished post cat====')
             console.log(result.data)
             // redirect
@@ -230,12 +267,16 @@ export default class RehomePost extends React.Component {
                 <div>
                     <label className='m-1'> Owner Name:</label>
                     <input type="text" className="form-control" value={this.state.name}
-                        onChange={this.updateName} />
+                        onChange={this.updateName}
+                        onBlur={this.validName} />
+                    <p className='invalid-error-name' style={{ "color": "red" }}></p>
                 </div>
                 <div>
                     <label className='m-1'> Email:</label>
                     <input type="email" className="form-control" value={this.state.email}
-                        onChange={this.updateEmail} />
+                        onChange={this.updateEmail}
+                        onBlur={this.validEmail} />
+                    <p className='invalid-error-email' style={{ "color": "red" }}></p>
                 </div>
             </div>);
     }
@@ -271,23 +312,26 @@ export default class RehomePost extends React.Component {
 
         return (
             <React.Fragment>
-                <div style={{ backgroundColor: "#DEF5FE"}} className="container">
+                <div style={{ backgroundColor: "#DEF5FE" }} className="container">
 
                     {/* <h1>Rehome Your Cat </h1> */}
-                    <h2 className='p-2 mb-4'>Dear Cat Lovers, we understand that life can be unpredictable, and sometimes circumstances change, making it difficult for you to provide the love and care your feline friend deserves. If you find yourself in such a situation, please remember that putting your cat up for adoption is a responsible and compassionate choice.</h2>
+                    <h2 className='p-2 mb-4 m3 ' style={{ "fontSize": "28px" }}>Dear Cat Lovers, we understand that life can be unpredictable, and sometimes circumstances change, making it difficult for you to provide the love and care your feline friend deserves. If you find yourself in such a situation, please remember that putting your cat up for adoption is a responsible and compassionate choice.</h2>
                     <h2>Cat Details:</h2>
                     <div>
                         <label className='m-1'> Cat Name:</label>
                         <input type="text" className="form-control"
                             value={this.state.catName}
-                            onChange={this.updateCatName} />
-                        {!this.state.catName ? (<p>Please input cat name</p>) : (<p></p>)}
+                            onChange={this.updateCatName}
+                            onBlur={this.validCatName} />
+                        <p className='invalid-error-catName' style={{ "color": "red" }}></p>
                     </div>
                     <div>
                         <label className='m-1'> Cat Age:</label>
                         <input type="text" className="form-control" value={this.state.catAge}
-                            onChange={this.updateCatAge} />
-                        {!this.state.catAge ? <p>Please input cat age</p> : null}
+                            onChange={this.updateCatAge}
+                            onBlur={this.validCatAge} />
+                        <p className='invalid-error-catAge' style={{ "color": "red" }}></p>
+
                     </div>
                     <div>
                         <label className='m-1'>Cat Breed:</label>
@@ -318,13 +362,17 @@ export default class RehomePost extends React.Component {
                             name="catGender"
                             className="form-check-input me-1"
                             checked={this.state.catGender == "Male"}
-                            onChange={this.updateCatGender} />
+                            //checked="checked"
+
+                            onChange={this.updateCatGender}
+                        />
                         <label className="form-check-label me-2" >Male</label>
 
                         <input type="radio"
                             value="Female"
                             name="catGender"
-                            className="form-check-input me-1" checked={this.state.catGender == "Female"}
+                            className="form-check-input me-1"
+                            // checked={this.state.catGender == "Female"}
                             onChange={this.updateCatGender} />
                         <label className="form-check-label me-2">Female</label>
                     </div>
@@ -339,7 +387,7 @@ export default class RehomePost extends React.Component {
                         <label className="form-check-label me-2">Yes</label>
 
                         <input type="radio"
-                            value= "Not Required"
+                            value="Not Required"
                             name="homeVisit"
                             className="form-check-input me-1"
                             checked={this.state.requireHomeVisit == "Not Required"}
@@ -401,6 +449,7 @@ export default class RehomePost extends React.Component {
                             value="shy"
                             onChange={this.updatePersonality} />
                         <label className="me-2">Shy</label>
+                        <p className='invalid-error-personality' style={{ "color": "red" }}></p>
 
 
                     </div>
@@ -424,6 +473,8 @@ export default class RehomePost extends React.Component {
                             value="Leave me alone"
                             onChange={this.updateFamilyStatus} />
                         <label className="me-2">Leave me alone</label>
+                        <p className='invalid-error-familyStatus' style={{ "color": "red" }}></p>
+
 
                     </div>
                     <div>
@@ -434,7 +485,9 @@ export default class RehomePost extends React.Component {
                                 <input placeholder="Please key in medical history" type="text" className="form-control" id="problem"
                                     value={this.state.newProblem}
                                     onChange={(e) => this.setState({ newProblem: e.target.value })}
-                                />
+                                    onBlur={this.validProblem} />
+                                <p className='invalid-error-problem' style={{ "color": "red" }}></p>
+
                             </div>
                             <div className="form-group">
                                 <label className='m-1' htmlFor="date">Date:</label>
@@ -453,13 +506,18 @@ export default class RehomePost extends React.Component {
                     </div>
                     <div>
                         <label className='me-2'> Comment:</label>
-                        <input placeholder="Please describe your cat" type="text" className="form-control" value={this.state.comment}
-                            onChange={this.updateComment} />
+                        <input placeholder="Please describe your cat" type="text"
+                            className="form-control" value={this.state.comment}
+                            onChange={this.updateComment}
+                            onBlur={this.validComment} />
+                        <p className='invalid-error-comment' style={{ "color": "red" }}></p>
                     </div>
                     <div>
                         <label className='me-2'> Picture:</label>
                         <input placeholder="Upload a picture of the cat in URL format" type="text" className="form-control" value={this.state.pictureUrl}
-                            onChange={this.updatePicture} />
+                            onChange={this.updatePicture}
+                            onBlur={this.validPicture} />
+                        <p className='invalid-error-picture' style={{ "color": "red" }}></p>
                     </div>
 
                     <h2 className='me-2'>Owner details</h2>
@@ -480,7 +538,7 @@ export default class RehomePost extends React.Component {
 
                     {newProfile}
                     {userSelection}
-                    
+
                     <div>
                         <button className='submitButton m-1' onClick={this.postUser}>submit</button>
                     </div>
@@ -511,9 +569,129 @@ export default class RehomePost extends React.Component {
             [e.target.name]: e.target.value
         })
     }
+    validPersonality = () => {
+        let error = document.querySelector('.invalid-error-personality')
 
+        if (this.state.personality.length === 0){
+           error.textContent = "please select at least one"
+           return false;}
+           else {
+            error.textContent = "";
+            return true;
+           }
+
+    }
+
+    validFamilyStatus = () => {
+        let error = document.querySelector('.invalid-error-familyStatus')
+
+        if (this.state.personality.length === 0){
+           error.textContent = "please select at least one"
+           return false;}
+           else {
+            error.textContent = "";
+            return true;
+           }
+
+    }
+
+    validCatName = (event) => {
+        let error = document.querySelector('.invalid-error-catName');
+
+        if (event.target.value === "") {
+            error.textContent = 'Please input cat name'
+            return false;
+        }
+        if (event.target.value.trim().length < 3) {
+            error.textContent = 'Cat name length must be more than 2 characters'
+            return false;
+        }
+        else {
+            error.textContent = '';
+            return true;
+        }
+    }
+    validCatAge = (event) => {
+        let error = document.querySelector('.invalid-error-catAge')
+
+        if (event.target.value === "") {
+            error.textContent = 'Please input cat age'
+            return false;
+        }
+        let nAge = Number(event.target.value.trim());
+        if (isNaN(nAge)) {
+            error.textContent = 'Cat Age invalid'
+            return false;
+        }
+        else {
+            error.textContent = '';
+            return true;
+        }
+    }
+
+    validProblem = (event) => {
+        let error = document.querySelector('.invalid-error-problem')
+        if (event.target.value.trim().length > 50) {
+            error.textContent = 'problem length must be less than 50 characters'
+            return false;
+        } else {
+            error.textContent = '';
+            return true;
+        }
+    }
+
+    validComment = (event) => {
+        let error = document.querySelector('.invalid-error-comment')
+        if (event.target.value.trim().length > 150) {
+            error.textContent = 'comment length must be less than 150 characters'
+            return false;
+        } else {
+            error.textContent = '';
+            return true;
+        }
+    }
+
+    validPicture = (event) => {
+        let error = document.querySelector('.invalid-error-picture')
+        if (!event.target.value.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/)) {
+            error.textContent = 'Please insert correct pictureUrl';
+            return false;
+        } else {
+            error.textContent = '';
+            return true;
+        }
+    }
+
+    validName = (event) => {
+        let error = document.querySelector('.invalid-error-name')
+        if (event.target.value === "") {
+            error.textContent = 'Please insert name';
+            return false;
+        } if (event.target.value.trim().length < 3) {
+            error.textContent = 'Name length must be more than 2 characters';
+            return false;
+        } else {
+            error.textContent = '';
+            return true;
+        }
+    }
+
+    validEmail = (event) => {
+        let error = document.querySelector('.invalid-error-email')
+        if (event.target.value === "") {
+            error.textContent = 'Please insert email';
+            return false;
+        } else if (/^\w+([-]?\w+)@\w+([-]?\w+)(\.\w{2,3})+$/.test(event.target.value)) {
+            error.textContent = '';
+            return true;
+        } else {
+            error.textContent = 'invalid email, email must contain special character';
+            return false;
+        }
+    };
 
     updateCatName = (event) => {
+
         this.setState({
             catName: event.target.value
         })
@@ -574,7 +752,8 @@ export default class RehomePost extends React.Component {
     }
 
     updatePersonality = (event) => {
-
+        let error = document.querySelector('.invalid-error-personality');
+        error.textContent ='';
         if (this.state.personality.includes(event.target.value)) {
 
             const indexToDelete = this.state.personality.findIndex(function (el) {
@@ -597,7 +776,8 @@ export default class RehomePost extends React.Component {
     }
 
     updateFamilyStatus = (event) => {
-
+        let error = document.querySelector('.invalid-error-familyStatus');
+        error.textContent ='';
         if (this.state.familyStatus.includes(event.target.value)) {
 
             const indexToDelete = this.state.familyStatus.findIndex(function (el) {
